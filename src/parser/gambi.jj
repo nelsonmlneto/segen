@@ -1,0 +1,164 @@
+options {
+  STATIC = false;
+}
+
+PARSER_BEGIN(Gambi)
+
+import java.io.*;
+
+
+public class Gambi {
+final static String versao = "Gambi Compiler - Version 1.0 - 2012";
+boolean menosshort = false; // sa’da resumida = falso
+
+
+  // Define main method  
+  public  static void main(String args[]) throws ParseException {
+    System.out.println("Starting parser ... ");
+
+    String filename = "";
+    Gambi parser; 
+    int i;
+    boolean ms = true;
+
+    filename = args[args.length-1];  
+    System.out.println("Lendo do arquivo " + filename + " . . .");
+    try {
+      parser = new Gambi(new java.io.FileInputStream(filename));
+    }catch (java.io.FileNotFoundException e) {
+      System.out.println("Arquivo " + filename + " nao encontrado.");
+      return;
+    }
+     
+    parser.menosshort = ms;
+    parser.start();
+    if ( parser.token_source.foundLexError() != 0 ) // verifica se houve erro lexico
+        System.out.println(parser.token_source.foundLexError() + " Erros lexicos encontrados");
+    else
+        System.out.println("Programa analisado com sucesso.");
+}  // main
+
+static public String im(int x){
+  int k;
+  String s;
+  s = tokenImage[x];
+  k = s.lastIndexOf("\"");
+  try {s = s.substring(1,k);}
+  catch (StringIndexOutOfBoundsException e){}
+  return s;
+}
+
+}  // Gambi
+
+PARSER_END(Gambi)
+
+TOKEN_MGR_DECLS : {
+  int countLexError = 0;
+
+  public int foundLexError(){
+    return countLexError;
+  }
+}
+
+/* Espacos a serem desprezados no inicio de cada token */
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| "\f"
+}
+
+/* Palavras reservadas */
+
+TOKEN :
+{
+  < CONFIG: "config" > 
+| < SIMPLETEST: "simple" >
+| < BEGIN: "begin" >
+| < END: "end" >
+| < MULTIPLETEST: "multiple" >
+| < PROCEDURE: "proc" >
+| < WEB: "@web" >
+| < MOBILE: "@mobile" >
+}
+
+TOKEN :
+{
+  < TARGET: (<LETTER>|<DIGIT>|<APAREN>|<FPAREN>|<ACHAVE>|<FCHAVE>|<ACOUCHE>|<FCOUCHE>|<PONTOEVIRGULA>|<VIRGULA>|<PONTO>|<ATRIBUICAO>|<MAIORQUE>|<MENORQUE>|<NEG>|<MAIS>|<MENOS>|<ESTRELA>|<BARRA>|<MODULO>|<AND>|<OR>|<NOT>|<SQUOTE>|<DQUOTE>| "$" )* >
+|
+  < #LETTER:["A"-"Z","a"-"z"] >
+|
+  < #DIGIT:["0"-"9"] >
+|    
+  < #APAREN: "(" >
+| 
+  < #FPAREN: ")" > 
+| 
+  < #ACHAVE: "{" > 
+| 
+  < #FCHAVE: "}" > 
+| 
+  < #ACOUCHE: "[" > 
+| 
+  < #FCOUCHE: "]" >
+| 
+  < #PONTOEVIRGULA: ";" >
+| 
+  < #VIRGULA: "," >
+| 
+  < #PONTO: "." >
+|  
+  < #ATRIBUICAO: "=" >
+| 
+  < #MAIORQUE: ">" >
+| 
+  < #MENORQUE: "<" >
+| 
+  < #NEG: "!" >
+| 
+  < #MAIS: "+" >
+| 
+  < #MENOS: "-" >
+| 
+  < #ESTRELA: "*" >
+| 
+  < #BARRA: "/" >
+| 
+  < #MODULO: "%" > 
+| 
+  < #AND: "&" >
+| 
+  < #OR: "|" > 
+| 
+  < #NOT: "~" > 
+| 
+  < #SQUOTE: "\'" > 
+| 
+  < #DQUOTE: "\"" >      
+}
+
+TOKEN :
+{
+  < PROCALL: "@" (["A"-"Z","a"-"z"]|["0"-"9"])* >
+}
+
+JAVACODE void start()
+{
+Token t;
+    do{
+        t = getNextToken();
+        Token st = t;
+        while ( st.specialToken != null)
+          st = st.specialToken;
+        do{
+          System.out.println("Linha: " + st.beginLine + 
+                                 " Coluna: " + st.beginColumn + 
+                                 " " + st.image +
+                                 "  " + im(st.kind) + "  "+t.kind);
+          st = st.next;       
+        } while (st != t.next);
+    } while (t.kind != GambiConstants.EOF);  
+}
