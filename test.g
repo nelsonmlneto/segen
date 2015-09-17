@@ -1,6 +1,3 @@
-config begin
-
-end
 
 simple Test1 begin
 
@@ -13,6 +10,8 @@ simple Test1 begin
         driver.get(baseUrl+"/");
         driver.findElement(By.cssSelector("option[value='1']")).click();
     end
+    
+    driver.get(baseUrl+"/");
     
     @openPage["buttonId"]
 

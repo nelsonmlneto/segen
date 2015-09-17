@@ -4,12 +4,16 @@ options {
 
 PARSER_BEGIN(Gambi)
 
+package parser;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import control.Controller;
 
 
 public class Gambi {
 final static String versao = "Gambi Compiler - Version 1.0 - 2012";
-boolean menosshort = false; // sa’da resumida = falso
+boolean menosshort = false; // saï¿½da resumida = falso
 
 
   // Define main method  
@@ -145,20 +149,26 @@ TOKEN :
   < PROCALL: "@" (["A"-"Z","a"-"z"]|["0"-"9"])* >
 }
 
-JAVACODE void start()
-{
-Token t;
-    do{
-        t = getNextToken();
-        Token st = t;
-        while ( st.specialToken != null)
-          st = st.specialToken;
-        do{
-          System.out.println("Linha: " + st.beginLine + 
-                                 " Coluna: " + st.beginColumn + 
-                                 " " + st.image +
-                                 "  " + im(st.kind) + "  "+t.kind);
-          st = st.next;       
-        } while (st != t.next);
-    } while (t.kind != GambiConstants.EOF);  
-}
+JAVACODE void start() throws ParseException {
+
+List<Token> tokens = new ArrayList<Token>();	  
+	Token t;
+	do{
+    	t = getNextToken();
+    	tokens.add(t);
+    	Token st = t;
+   		while ( st.specialToken != null)
+      		st = st.specialToken;
+		do{
+  			System.out.println("Linha: " + st.beginLine +
+                             " Coluna: " + st.beginColumn +
+                             " " + st.image +
+                             "  " + im(st.kind) + "  "+t.kind);
+      		st = st.next;
+    	} while (st != t.next);
+	} while (t.kind != GambiConstants.EOF);
+
+    Controller controller = Controller.getInstance();
+    controller.createScriptModel(tokens);
+    
+  }

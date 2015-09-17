@@ -9,4 +9,13 @@ public class Procedure {
 	private String parameter;
 	
 	private List<Statement> statements;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
 }
