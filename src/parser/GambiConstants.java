@@ -27,59 +27,63 @@ public interface GambiConstants {
   /** RegularExpression Id. */
   int MOBILE = 13;
   /** RegularExpression Id. */
-  int TARGET = 14;
+  int CLICKBUTTON = 14;
   /** RegularExpression Id. */
-  int LETTER = 15;
+  int ASSERTLABEL = 15;
   /** RegularExpression Id. */
-  int DIGIT = 16;
+  int TARGET = 16;
   /** RegularExpression Id. */
-  int APAREN = 17;
+  int LETTER = 17;
   /** RegularExpression Id. */
-  int FPAREN = 18;
+  int DIGIT = 18;
   /** RegularExpression Id. */
-  int ACHAVE = 19;
+  int APAREN = 19;
   /** RegularExpression Id. */
-  int FCHAVE = 20;
+  int FPAREN = 20;
   /** RegularExpression Id. */
-  int ACOUCHE = 21;
+  int ACHAVE = 21;
   /** RegularExpression Id. */
-  int FCOUCHE = 22;
+  int FCHAVE = 22;
   /** RegularExpression Id. */
-  int PONTOEVIRGULA = 23;
+  int ACOUCHE = 23;
   /** RegularExpression Id. */
-  int VIRGULA = 24;
+  int FCOUCHE = 24;
   /** RegularExpression Id. */
-  int PONTO = 25;
+  int PONTOEVIRGULA = 25;
   /** RegularExpression Id. */
-  int ATRIBUICAO = 26;
+  int VIRGULA = 26;
   /** RegularExpression Id. */
-  int MAIORQUE = 27;
+  int PONTO = 27;
   /** RegularExpression Id. */
-  int MENORQUE = 28;
+  int ATRIBUICAO = 28;
   /** RegularExpression Id. */
-  int NEG = 29;
+  int MAIORQUE = 29;
   /** RegularExpression Id. */
-  int MAIS = 30;
+  int MENORQUE = 30;
   /** RegularExpression Id. */
-  int MENOS = 31;
+  int NEG = 31;
   /** RegularExpression Id. */
-  int ESTRELA = 32;
+  int MAIS = 32;
   /** RegularExpression Id. */
-  int BARRA = 33;
+  int MENOS = 33;
   /** RegularExpression Id. */
-  int MODULO = 34;
+  int ESTRELA = 34;
   /** RegularExpression Id. */
-  int AND = 35;
+  int BARRA = 35;
   /** RegularExpression Id. */
-  int OR = 36;
+  int MODULO = 36;
   /** RegularExpression Id. */
-  int NOT = 37;
+  int AND = 37;
   /** RegularExpression Id. */
-  int SQUOTE = 38;
+  int OR = 38;
   /** RegularExpression Id. */
-  int DQUOTE = 39;
+  int NOT = 39;
   /** RegularExpression Id. */
-  int PROCALL = 40;
+  int SQUOTE = 40;
+  /** RegularExpression Id. */
+  int DQUOTE = 41;
+  /** RegularExpression Id. */
+  int PROCALL = 42;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -100,6 +104,8 @@ public interface GambiConstants {
     "\"proc\"",
     "\"@web\"",
     "\"@mobile\"",
+    "\"@clickButton\"",
+    "\"@assertLabel\"",
     "<TARGET>",
     "<LETTER>",
     "<DIGIT>",

@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import model.statement.Statement;
+
 public class Procedure {
 	
 	private String title;

@@ -87,6 +87,8 @@ TOKEN :
 | < PROCEDURE: "proc" >
 | < WEB: "@web" >
 | < MOBILE: "@mobile" >
+| < CLICKBUTTON: "@clickButton" >
+| < ASSERTLABEL: "@assertLabel" >
 }
 
 TOKEN :

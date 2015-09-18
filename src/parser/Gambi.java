@@ -52,11 +52,7 @@ List<Token> tokens = new ArrayList<Token>();
         Token t;
         do{
         t = getNextToken();
-        
-
         tokens.add(t);
-
-        
         Token st = t;
                 while ( st.specialToken != null)
                 st = st.specialToken;
@@ -64,7 +60,7 @@ List<Token> tokens = new ArrayList<Token>();
                         System.out.println("Linha: " + st.beginLine +
                              " Coluna: " + st.beginColumn +
                              " " + st.image +
-                             "  " + im(st.kind) + "  "+t.kind);        
+                             "  " + im(st.kind) + "  "+t.kind);
                 st = st.next;
         } while (st != t.next);
         } while (t.kind != GambiConstants.EOF);
@@ -210,7 +206,7 @@ List<Token> tokens = new ArrayList<Token>();
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[41];
+    boolean[] la1tokens = new boolean[43];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -227,7 +223,7 @@ List<Token> tokens = new ArrayList<Token>();
         }
       }
     }
-    for (int i = 0; i < 41; i++) {
+    for (int i = 0; i < 43; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

@@ -14,6 +14,8 @@ simple Test1 begin
     driver.get(baseUrl+"/");
     
     @openPage["buttonId"]
+    
+    @clickButton["openButton"]
 
 end    
 

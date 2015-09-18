@@ -20,8 +20,9 @@ public class Controller {
 	
 	public void createScriptModel(List<Token> tokens){
 		
-		TokenListIterator tokenIterator = new TokenListIterator(tokens);
+		_script = new ScriptModel();
 		
+		TokenListIterator tokenIterator = new TokenListIterator(tokens);
 		Token currentToken = tokenIterator.getNextToken();
 	    
 		while (currentToken.kind != GambiConstants.EOF){
@@ -37,7 +38,7 @@ public class Controller {
 			    	break;
 			 
 			    case GambiConstants.PROCEDURE:
-			            
+			    System.out.println(">> CONTROLLER PROC DEF");   
 		            break;
 			    
 			    default:
