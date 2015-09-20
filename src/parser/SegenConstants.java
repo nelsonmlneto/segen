@@ -11,87 +11,89 @@ public interface SegenConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int CONFIG = 6;
+  int SIMPLETEST = 6;
   /** RegularExpression Id. */
-  int SIMPLETEST = 7;
+  int BEGIN = 7;
   /** RegularExpression Id. */
-  int BEGIN = 8;
+  int END = 8;
   /** RegularExpression Id. */
-  int END = 9;
+  int MULTIPLETEST = 9;
   /** RegularExpression Id. */
-  int MULTIPLETEST = 10;
+  int PROCEDURE = 10;
   /** RegularExpression Id. */
-  int PROCEDURE = 11;
+  int WEB = 11;
   /** RegularExpression Id. */
-  int WEB = 12;
+  int MOBILE = 12;
   /** RegularExpression Id. */
-  int MOBILE = 13;
+  int CLICKBUTTON = 13;
   /** RegularExpression Id. */
-  int CLICKBUTTON = 14;
+  int ASSERTLABEL = 14;
   /** RegularExpression Id. */
-  int ASSERTLABEL = 15;
+  int BEFOREALL = 15;
   /** RegularExpression Id. */
-  int TARGET = 16;
+  int AFTERALL = 16;
   /** RegularExpression Id. */
-  int LETTER = 17;
+  int TARGET = 17;
   /** RegularExpression Id. */
-  int DIGIT = 18;
+  int LETTER = 18;
   /** RegularExpression Id. */
-  int APAREN = 19;
+  int DIGIT = 19;
   /** RegularExpression Id. */
-  int FPAREN = 20;
+  int APAREN = 20;
   /** RegularExpression Id. */
-  int ACHAVE = 21;
+  int FPAREN = 21;
   /** RegularExpression Id. */
-  int FCHAVE = 22;
+  int ACHAVE = 22;
   /** RegularExpression Id. */
-  int ACOUCHE = 23;
+  int FCHAVE = 23;
   /** RegularExpression Id. */
-  int FCOUCHE = 24;
+  int ACOUCHE = 24;
   /** RegularExpression Id. */
-  int PONTOEVIRGULA = 25;
+  int FCOUCHE = 25;
   /** RegularExpression Id. */
-  int VIRGULA = 26;
+  int PONTOEVIRGULA = 26;
   /** RegularExpression Id. */
-  int PONTO = 27;
+  int VIRGULA = 27;
   /** RegularExpression Id. */
-  int ATRIBUICAO = 28;
+  int PONTO = 28;
   /** RegularExpression Id. */
-  int MAIORQUE = 29;
+  int ATRIBUICAO = 29;
   /** RegularExpression Id. */
-  int MENORQUE = 30;
+  int MAIORQUE = 30;
   /** RegularExpression Id. */
-  int NEG = 31;
+  int MENORQUE = 31;
   /** RegularExpression Id. */
-  int MAIS = 32;
+  int NEG = 32;
   /** RegularExpression Id. */
-  int MENOS = 33;
+  int MAIS = 33;
   /** RegularExpression Id. */
-  int ESTRELA = 34;
+  int MENOS = 34;
   /** RegularExpression Id. */
-  int BARRA = 35;
+  int ESTRELA = 35;
   /** RegularExpression Id. */
-  int MODULO = 36;
+  int BARRA = 36;
   /** RegularExpression Id. */
-  int AND = 37;
+  int MODULO = 37;
   /** RegularExpression Id. */
-  int OR = 38;
+  int AND = 38;
   /** RegularExpression Id. */
-  int NOT = 39;
+  int OR = 39;
   /** RegularExpression Id. */
-  int SQUOTE = 40;
+  int NOT = 40;
   /** RegularExpression Id. */
-  int DQUOTE = 41;
+  int SQUOTE = 41;
   /** RegularExpression Id. */
-  int PROCALL = 42;
+  int DQUOTE = 42;
   /** RegularExpression Id. */
-  int PARAM = 43;
+  int PROCALL = 43;
   /** RegularExpression Id. */
-  int IDENT = 44;
+  int PARAM = 44;
   /** RegularExpression Id. */
-  int ARG = 45;
+  int IDENT = 45;
   /** RegularExpression Id. */
-  int EMPTYPARAM = 46;
+  int ARG = 46;
+  /** RegularExpression Id. */
+  int EMPTYPARAM = 47;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -104,7 +106,6 @@ public interface SegenConstants {
     "\"\\n\"",
     "\"\\r\"",
     "\"\\f\"",
-    "\"config\"",
     "\"simple\"",
     "\"begin\"",
     "\"end\"",
@@ -114,6 +115,8 @@ public interface SegenConstants {
     "\"@mobile\"",
     "\"@clickButton\"",
     "\"@assertLabel\"",
+    "\"beforeAll\"",
+    "\"afterAll\"",
     "<TARGET>",
     "<LETTER>",
     "<DIGIT>",

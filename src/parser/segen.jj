@@ -71,8 +71,7 @@ SKIP :
 
 TOKEN :
 {
-  < CONFIG: "config" > 
-| < SIMPLETEST: "simple" >
+  < SIMPLETEST: "simple" >
 | < BEGIN: "begin" >
 | < END: "end" >
 | < MULTIPLETEST: "multiple" >
@@ -81,11 +80,13 @@ TOKEN :
 | < MOBILE: "@mobile" >
 | < CLICKBUTTON: "@clickButton" >
 | < ASSERTLABEL: "@assertLabel" >
+| < BEFOREALL: "beforeAll" >
+| < AFTERALL: "afterAll" >
 }
 
 TOKEN :
 {
-  < TARGET: <LETTER> (<LETTER>|<DIGIT>|<APAREN>|<FPAREN>|<ACHAVE>|<FCHAVE>|<ACOUCHE>|<FCOUCHE>|<PONTOEVIRGULA>|<VIRGULA>|<PONTO>|<ATRIBUICAO>|<MAIORQUE>|<MENORQUE>|<NEG>|<MAIS>|<MENOS>|<ESTRELA>|<BARRA>|<MODULO>|<AND>|<OR>|<NOT>|<SQUOTE>|<DQUOTE>| "$" | " ")* ";" >
+  < TARGET: <LETTER> (<LETTER>|<DIGIT>|<APAREN>|<FPAREN>|<ACHAVE>|<FCHAVE>|<ACOUCHE>|<FCOUCHE>|<PONTOEVIRGULA>|<VIRGULA>|<PONTO>|<ATRIBUICAO>|<MAIORQUE>|<MENORQUE>|<NEG>|<MAIS>|<MENOS>|<ESTRELA>|<BARRA>|<MODULO>|<AND>|<OR>|<NOT>|<SQUOTE>|<DQUOTE>| "$" | " " | ":" )* ";" >
 |
   < #LETTER:["A"-"Z","a"-"z"] >
 |

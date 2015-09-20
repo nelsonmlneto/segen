@@ -27,5 +27,20 @@ public class SimpleTest {
 	public String getTitle() {
 		return title;
 	}	
+	
+	public String writeTest(){
+
+		String list = "";
+		int i = 1;
+		for(Statement s : statements){
+			list = list + s.getStatement();
+			if(i != statements.size()){
+				list = list + "\n";
+			}
+			i++;
+		}
+		return list;
+		
+	}
 
 }

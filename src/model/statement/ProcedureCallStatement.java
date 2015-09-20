@@ -18,7 +18,8 @@ public class ProcedureCallStatement extends Statement {
 	@Override
 	public String getStatement(){
 		//TODO remove, not used
-		return "Procedure " + title + " " + arg;
+		//return "Procedure " + title + " " + arg;
+		return "";
 	}
 	
 	
