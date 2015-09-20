@@ -2,14 +2,16 @@ package control;
 
 import java.util.List;
 
+import model.Procedure;
 import model.SimpleTest;
+import model.creator.ProcedureCreator;
 import model.creator.SimpleTestCreator;
 import parser.GambiConstants;
 import parser.Token;
 
 public class Controller {
 
-	private ScriptModel _script;
+	private ScriptModel script;
 	
 	private static Controller _instance;
 	
@@ -18,9 +20,16 @@ public class Controller {
 	//TODO create a method that calls the other two (organization)
 	//TODO rename Gambi name in the jj file
 	
-	public void createScriptModel(List<Token> tokens){
+	public void createScripts(List<Token> tokens){
 		
-		_script = new ScriptModel();
+		createScriptModel(tokens);
+		generateTestScripts();
+		
+	}
+	
+	private void createScriptModel(List<Token> tokens){
+		
+		script = new ScriptModel();
 		
 		TokenListIterator tokenIterator = new TokenListIterator(tokens);
 		Token currentToken = tokenIterator.getNextToken();
@@ -31,15 +40,16 @@ public class Controller {
 				case GambiConstants.SIMPLETEST:
 			        
 					SimpleTest test = SimpleTestCreator.create(tokenIterator);
-					_script.addSimpleTest(test);
-					
-					//TODO throw exception from simple test creator
+					script.addSimpleTest(test);
 					
 			    	break;
 			 
 			    case GambiConstants.PROCEDURE:
-			    System.out.println(">> CONTROLLER PROC DEF");   
-		            break;
+			    	
+			    	Procedure procedure = ProcedureCreator.create(tokenIterator); 
+			    	script.addProcedure(procedure);
+		            
+			    	break;
 			    
 			    default:
 			    	//TODO throw syntax error exception
@@ -50,7 +60,7 @@ public class Controller {
 	}
 	
 	//TODO
-	public void generateTestScripts(){
+	private void generateTestScripts(){
 		
 	}
 	

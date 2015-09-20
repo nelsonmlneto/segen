@@ -1,6 +1,7 @@
 package model.creator;
 
 import model.statement.ClickButtonStatement;
+import parser.GambiConstants;
 import parser.Token;
 import control.TokenListIterator;
 
@@ -11,11 +12,11 @@ public class ClickButtonStatementCreator {
 		Token currentToken = tokenIterator.getNextToken();
 		String buttonId = currentToken.image;
 	
-		if(!(buttonId.startsWith("[\"") && buttonId.endsWith("\"]"))){
+		if(currentToken.kind != GambiConstants.ARG){
 			//TODO throw syntax exception
 		}
 		
-		buttonId.substring(2, buttonId.length() - 2);
+		buttonId = buttonId.substring(2, buttonId.length() - 2);
 		
 		return new ClickButtonStatement(buttonId);
 	}	

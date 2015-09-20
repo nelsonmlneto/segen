@@ -1,25 +1,37 @@
 package model.creator;
 
-import model.SimpleTest;
+import model.Procedure;
 import model.statement.Statement;
 import parser.GambiConstants;
 import parser.Token;
 import control.TokenListIterator;
 
-public class SimpleTestCreator {
-
-	public static SimpleTest create(TokenListIterator tokenIterator){
+public class ProcedureCreator {
+	
+	public static Procedure create(TokenListIterator tokenIterator){
 		
 		Token currentToken = tokenIterator.getNextToken();
-		SimpleTest test = null;
+		Procedure procedure = null;
 		Statement statement = null;
 		
 		if (currentToken.kind == GambiConstants.IDENT){
 			
-			test = new SimpleTest(currentToken.toString());
+			procedure = new Procedure(currentToken.toString());
 			currentToken = tokenIterator.getNextToken();
 			
-			if(currentToken.kind != GambiConstants.BEGIN){
+			if(currentToken.kind == GambiConstants.PARAM){
+				
+				procedure.setParameter(currentToken.image);
+			
+			}else if(currentToken.kind == GambiConstants.EMPTYPARAM){
+				
+				procedure.setParameter("");
+			
+			}else{
+				//TODO throw syntax exception parameter expected
+			}
+			
+			if(tokenIterator.getNextToken().kind != GambiConstants.BEGIN){
 				//TODO throw syntax exception (begin expected)
 			}
 			
@@ -46,26 +58,22 @@ public class SimpleTestCreator {
 		            
 			    case GambiConstants.CLICKBUTTON:
 			    	statement = ClickButtonStatementCreator.create(tokenIterator);
-			    	break;  
-		            
-		    	case GambiConstants.PROCALL:
-		    		statement = ProcedureCallStatementCreator.create(currentToken.image, tokenIterator);
-		            break;     
+			    	break;  	            
 		            
 			    default:
 			    	//TODO throw syntax error exception
 			}
-			test.addStatement(statement);
+			procedure.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();
 		}
 		
-		System.out.println(">> Listing simple test: " + test.getTitle());
-		for(Statement t : test.getStatements()){
+		System.out.println(">> Listing Procedure: " + procedure.getTitle());
+		for(Statement t : procedure.getStatements()){
 			System.out.println(t.getStatement());
 		}
 		System.out.println("");
 		
-		return test;
-	}
-	
+		return procedure;
+	}	
+
 }

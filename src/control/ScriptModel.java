@@ -1,6 +1,7 @@
 package control;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public class ScriptModel {
 	
 	public ScriptModel(){
 		simpleTests = new ArrayList<SimpleTest>();
-		//TODO create 
+		procedures = new HashMap<String, Procedure>();
 	}
 	
 	public void addSimpleTest(SimpleTest test){
@@ -23,9 +24,7 @@ public class ScriptModel {
 	
 	public void addProcedure(Procedure procedure){
 		procedures.put(procedure.getTitle(), procedure);
-		
-		//TODO throw execption existing title
-		
+		//TODO verify throw exception existing title (procedure);
 	}
 	
 }

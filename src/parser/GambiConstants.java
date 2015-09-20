@@ -84,6 +84,14 @@ public interface GambiConstants {
   int DQUOTE = 41;
   /** RegularExpression Id. */
   int PROCALL = 42;
+  /** RegularExpression Id. */
+  int PARAM = 43;
+  /** RegularExpression Id. */
+  int IDENT = 44;
+  /** RegularExpression Id. */
+  int ARG = 45;
+  /** RegularExpression Id. */
+  int EMPTYPARAM = 46;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -133,6 +141,10 @@ public interface GambiConstants {
     "\"\\\'\"",
     "\"\\\"\"",
     "<PROCALL>",
+    "<PARAM>",
+    "<IDENT>",
+    "<ARG>",
+    "<EMPTYPARAM>",
   };
 
 }

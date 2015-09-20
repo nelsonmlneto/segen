@@ -25,21 +25,21 @@ public class MobileStatementCretor {
 			    
 				case GambiConstants.TARGET:
 					statement = SimpleStatementCreator.create(currentToken.image);
-					mobile.addStatement(statement);
 			    	break;
 		            
 			    case GambiConstants.CLICKBUTTON:
-		            //TODO
+			    	statement = ClickButtonStatementCreator.create(tokenIterator);
 		            break;      
 		            
 		    	case GambiConstants.PROCALL:
-		    		//TODO
+		    		statement = ProcedureCallStatementCreator.create(currentToken.image, tokenIterator);
 		            break;      
 		            
 			    default:
 			    	//TODO throw syntax error exception
 			}
 			
+			mobile.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();
 		}
 		

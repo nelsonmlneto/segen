@@ -66,7 +66,7 @@ List<Token> tokens = new ArrayList<Token>();
         } while (t.kind != GambiConstants.EOF);
 
     Controller controller = Controller.getInstance();
-    controller.createScriptModel(tokens);
+    controller.createScripts(tokens);
   }
 
   /** Generated Token Manager. */
@@ -206,7 +206,7 @@ List<Token> tokens = new ArrayList<Token>();
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[43];
+    boolean[] la1tokens = new boolean[47];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -223,7 +223,7 @@ List<Token> tokens = new ArrayList<Token>();
         }
       }
     }
-    for (int i = 0; i < 43; i++) {
+    for (int i = 0; i < 47; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

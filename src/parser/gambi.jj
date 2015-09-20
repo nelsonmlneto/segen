@@ -93,7 +93,7 @@ TOKEN :
 
 TOKEN :
 {
-  < TARGET: (<LETTER>|<DIGIT>|<APAREN>|<FPAREN>|<ACHAVE>|<FCHAVE>|<ACOUCHE>|<FCOUCHE>|<PONTOEVIRGULA>|<VIRGULA>|<PONTO>|<ATRIBUICAO>|<MAIORQUE>|<MENORQUE>|<NEG>|<MAIS>|<MENOS>|<ESTRELA>|<BARRA>|<MODULO>|<AND>|<OR>|<NOT>|<SQUOTE>|<DQUOTE>| "$" )* >
+  < TARGET: <LETTER> (<LETTER>|<DIGIT>|<APAREN>|<FPAREN>|<ACHAVE>|<FCHAVE>|<ACOUCHE>|<FCOUCHE>|<PONTOEVIRGULA>|<VIRGULA>|<PONTO>|<ATRIBUICAO>|<MAIORQUE>|<MENORQUE>|<NEG>|<MAIS>|<MENOS>|<ESTRELA>|<BARRA>|<MODULO>|<AND>|<OR>|<NOT>|<SQUOTE>|<DQUOTE>| "$" | " ")* ";" >
 |
   < #LETTER:["A"-"Z","a"-"z"] >
 |
@@ -151,6 +151,27 @@ TOKEN :
   < PROCALL: "@" (["A"-"Z","a"-"z"]|["0"-"9"])* >
 }
 
+TOKEN :
+{
+  < PARAM: "[" (( ["A"-"Z","a"-"z"](["A"-"Z","a"-"z"] | ["0"-"9"] )* ) ) "]">
+}
+
+
+TOKEN :
+{
+  < IDENT: ["A"-"Z","a"-"z"](["A"-"Z","a"-"z"]|["0"-"9"])* >
+}
+
+TOKEN :
+{
+  < ARG: "[" "\"" (["A"-"Z","a"-"z"](["A"-"Z","a"-"z"] | ["0"-"9"] | " ")*) "\"" "]" >
+}
+
+TOKEN :
+{
+  < EMPTYPARAM: "[" "]" >
+}
+
 JAVACODE void start() throws ParseException {
 
 List<Token> tokens = new ArrayList<Token>();	  
@@ -171,6 +192,6 @@ List<Token> tokens = new ArrayList<Token>();
 	} while (t.kind != GambiConstants.EOF);
 
     Controller controller = Controller.getInstance();
-    controller.createScriptModel(tokens);
+    controller.createScripts(tokens);
     
   }

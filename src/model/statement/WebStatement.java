@@ -17,8 +17,16 @@ public class WebStatement extends Statement {
 	
 	@Override
 	public String getStatement(){
-		//TODO iterate statement
-		return "";
+		String list = "";
+		int i = 1;
+		for(Statement s : statements){
+			list = list + s.getStatement();
+			if(i != statements.size()){
+				list = list + "\n";
+			}
+			i++;
+		}
+		return list;
 	}
 	
 }

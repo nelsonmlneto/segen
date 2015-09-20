@@ -2,13 +2,12 @@ package model.statement;
 
 public class ClickButtonStatement extends Statement {
 
-	private String CLICK_BUTTON_JAVA = "driver.findElement(By.id(\"$ID$\")).click();";
+	private String CLICK_BUTTON_JAVA = "driver.findElement(By.id(\"%s\")).click();";
 	
 	private String statement;
 	
 	public ClickButtonStatement(String buttonId){
-		statement = CLICK_BUTTON_JAVA;
-		statement.replaceFirst("$ID$", buttonId);
+		statement = String.format(CLICK_BUTTON_JAVA, buttonId);
 	}
 	
 	@Override
