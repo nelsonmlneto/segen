@@ -1,0 +1,192 @@
+options {
+  STATIC = false;
+}
+
+PARSER_BEGIN(Segen)
+
+package parser;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import control.Controller;
+
+
+public class Segen {
+final static String version = "Segen - Selenium Test Script Generator Prototype for Web and Mobile environment  - Version 1.0 - 2015";
+
+  // Main method  
+  public  static void main(String args[]) throws ParseException {
+    System.out.println("Starting parser ... ");
+
+    String filename = "";
+    Segen parser; 
+    int i;
+    boolean ms = true;
+
+    filename = args[args.length-1];  
+    System.out.println("Reading file " + filename + " . . .");
+    try {
+      parser = new Segen(new java.io.FileInputStream(filename));
+    }catch (java.io.FileNotFoundException e) {
+      System.out.println("File " + filename + " not found");
+      return;
+    }
+     
+    parser.start();
+    if ( parser.token_source.foundLexError() != 0 )
+        System.out.println(parser.token_source.foundLexError() + " lexical errors found");
+    else
+    System.out.println("Test scritps generated successfully.");
+}  // main
+
+static public String im(int x){
+  int k;
+  String s;
+  s = tokenImage[x];
+  k = s.lastIndexOf("\"");
+  try {s = s.substring(1,k);}
+  catch (StringIndexOutOfBoundsException e){}
+  return s;
+}
+
+}  // Segen
+
+PARSER_END(Segen)
+
+TOKEN_MGR_DECLS : {
+  int countLexError = 0;
+
+  public int foundLexError(){
+    return countLexError;
+  }
+}
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| "\f"
+}
+
+/* Reserved words */
+
+TOKEN :
+{
+  < CONFIG: "config" > 
+| < SIMPLETEST: "simple" >
+| < BEGIN: "begin" >
+| < END: "end" >
+| < MULTIPLETEST: "multiple" >
+| < PROCEDURE: "proc" >
+| < WEB: "@web" >
+| < MOBILE: "@mobile" >
+| < CLICKBUTTON: "@clickButton" >
+| < ASSERTLABEL: "@assertLabel" >
+}
+
+TOKEN :
+{
+  < TARGET: <LETTER> (<LETTER>|<DIGIT>|<APAREN>|<FPAREN>|<ACHAVE>|<FCHAVE>|<ACOUCHE>|<FCOUCHE>|<PONTOEVIRGULA>|<VIRGULA>|<PONTO>|<ATRIBUICAO>|<MAIORQUE>|<MENORQUE>|<NEG>|<MAIS>|<MENOS>|<ESTRELA>|<BARRA>|<MODULO>|<AND>|<OR>|<NOT>|<SQUOTE>|<DQUOTE>| "$" | " ")* ";" >
+|
+  < #LETTER:["A"-"Z","a"-"z"] >
+|
+  < #DIGIT:["0"-"9"] >
+|    
+  < #APAREN: "(" >
+| 
+  < #FPAREN: ")" > 
+| 
+  < #ACHAVE: "{" > 
+| 
+  < #FCHAVE: "}" > 
+| 
+  < #ACOUCHE: "[" > 
+| 
+  < #FCOUCHE: "]" >
+| 
+  < #PONTOEVIRGULA: ";" >
+| 
+  < #VIRGULA: "," >
+| 
+  < #PONTO: "." >
+|  
+  < #ATRIBUICAO: "=" >
+| 
+  < #MAIORQUE: ">" >
+| 
+  < #MENORQUE: "<" >
+| 
+  < #NEG: "!" >
+| 
+  < #MAIS: "+" >
+| 
+  < #MENOS: "-" >
+| 
+  < #ESTRELA: "*" >
+| 
+  < #BARRA: "/" >
+| 
+  < #MODULO: "%" > 
+| 
+  < #AND: "&" >
+| 
+  < #OR: "|" > 
+| 
+  < #NOT: "~" > 
+| 
+  < #SQUOTE: "\'" > 
+| 
+  < #DQUOTE: "\"" >      
+}
+
+TOKEN :
+{
+  < PROCALL: "@" (["A"-"Z","a"-"z"]|["0"-"9"])* >
+}
+
+TOKEN :
+{
+  < PARAM: "[" (( ["A"-"Z","a"-"z"](["A"-"Z","a"-"z"] | ["0"-"9"] )* ) ) "]">
+}
+
+
+TOKEN :
+{
+  < IDENT: ["A"-"Z","a"-"z"](["A"-"Z","a"-"z"]|["0"-"9"])* >
+}
+
+TOKEN :
+{
+  < ARG: "[" "\"" (["A"-"Z","a"-"z"](["A"-"Z","a"-"z"] | ["0"-"9"] | " ")*) "\"" "]" >
+}
+
+TOKEN :
+{
+  < EMPTYPARAM: "[" "]" >
+}
+
+JAVACODE void start() throws ParseException {
+
+List<Token> tokens = new ArrayList<Token>();	  
+	Token t;
+	do{
+    	t = getNextToken();
+    	tokens.add(t);
+    	Token st = t;
+   		while ( st.specialToken != null)
+      		st = st.specialToken;
+		do{
+  			System.out.println("Linha: " + st.beginLine +
+                             " Coluna: " + st.beginColumn +
+                             " " + st.image +
+                             "  " + im(st.kind) + "  "+t.kind);
+      		st = st.next;
+    	} while (st != t.next);
+	} while (t.kind != SegenConstants.EOF);
+
+    Controller controller = Controller.getInstance();
+    controller.createScripts(tokens);
+    
+  }
