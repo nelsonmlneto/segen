@@ -6,7 +6,7 @@ import model.Procedure;
 import model.SimpleTest;
 import model.creator.ProcedureCreator;
 import model.creator.SimpleTestCreator;
-import parser.GambiConstants;
+import parser.SegenConstants;
 import parser.Token;
 
 public class Controller {
@@ -18,7 +18,6 @@ public class Controller {
 	private Controller(){}
 	
 	//TODO create a method that calls the other two (organization)
-	//TODO rename Gambi name in the jj file
 	
 	public void createScripts(List<Token> tokens){
 		
@@ -34,17 +33,17 @@ public class Controller {
 		TokenListIterator tokenIterator = new TokenListIterator(tokens);
 		Token currentToken = tokenIterator.getNextToken();
 	    
-		while (currentToken.kind != GambiConstants.EOF){
+		while (currentToken.kind != SegenConstants.EOF){
 			switch(currentToken.kind){
 			    
-				case GambiConstants.SIMPLETEST:
+				case SegenConstants.SIMPLETEST:
 			        
 					SimpleTest test = SimpleTestCreator.create(tokenIterator);
 					script.addSimpleTest(test);
 					
 			    	break;
 			 
-			    case GambiConstants.PROCEDURE:
+			    case SegenConstants.PROCEDURE:
 			    	
 			    	Procedure procedure = ProcedureCreator.create(tokenIterator); 
 			    	script.addProcedure(procedure);

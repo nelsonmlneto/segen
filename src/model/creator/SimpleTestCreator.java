@@ -2,7 +2,7 @@ package model.creator;
 
 import model.SimpleTest;
 import model.statement.Statement;
-import parser.GambiConstants;
+import parser.SegenConstants;
 import parser.Token;
 import control.TokenListIterator;
 
@@ -14,12 +14,12 @@ public class SimpleTestCreator {
 		SimpleTest test = null;
 		Statement statement = null;
 		
-		if (currentToken.kind == GambiConstants.IDENT){
+		if (currentToken.kind == SegenConstants.IDENT){
 			
 			test = new SimpleTest(currentToken.toString());
 			currentToken = tokenIterator.getNextToken();
 			
-			if(currentToken.kind != GambiConstants.BEGIN){
+			if(currentToken.kind != SegenConstants.BEGIN){
 				//TODO throw syntax exception (begin expected)
 			}
 			
@@ -29,26 +29,26 @@ public class SimpleTestCreator {
 		
 		currentToken = tokenIterator.getNextToken();
 		
-		while (currentToken.kind != GambiConstants.END){
+		while (currentToken.kind != SegenConstants.END){
 			switch(currentToken.kind){
 			    
-				case GambiConstants.TARGET:
+				case SegenConstants.TARGET:
 					statement = SimpleStatementCreator.create(currentToken.image);
 					break;
 			 
-			    case GambiConstants.WEB:
+			    case SegenConstants.WEB:
 			    	statement = WebStatementCreator.create(tokenIterator); 
 			    	break;
 			    
-			    case GambiConstants.MOBILE:
+			    case SegenConstants.MOBILE:
 			    	statement = MobileStatementCretor.create(tokenIterator); 
 			    	break; 
 		            
-			    case GambiConstants.CLICKBUTTON:
+			    case SegenConstants.CLICKBUTTON:
 			    	statement = ClickButtonStatementCreator.create(tokenIterator);
 			    	break;  
 		            
-		    	case GambiConstants.PROCALL:
+		    	case SegenConstants.PROCALL:
 		    		statement = ProcedureCallStatementCreator.create(currentToken.image, tokenIterator);
 		            break;     
 		            

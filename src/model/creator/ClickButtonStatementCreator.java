@@ -1,7 +1,7 @@
 package model.creator;
 
 import model.statement.ClickButtonStatement;
-import parser.GambiConstants;
+import parser.SegenConstants;
 import parser.Token;
 import control.TokenListIterator;
 
@@ -12,7 +12,7 @@ public class ClickButtonStatementCreator {
 		Token currentToken = tokenIterator.getNextToken();
 		String buttonId = currentToken.image;
 	
-		if(currentToken.kind != GambiConstants.ARG){
+		if(currentToken.kind != SegenConstants.ARG){
 			//TODO throw syntax exception
 		}
 		

@@ -2,7 +2,7 @@ package model.creator;
 
 import model.Procedure;
 import model.statement.Statement;
-import parser.GambiConstants;
+import parser.SegenConstants;
 import parser.Token;
 import control.TokenListIterator;
 
@@ -14,16 +14,16 @@ public class ProcedureCreator {
 		Procedure procedure = null;
 		Statement statement = null;
 		
-		if (currentToken.kind == GambiConstants.IDENT){
+		if (currentToken.kind == SegenConstants.IDENT){
 			
 			procedure = new Procedure(currentToken.toString());
 			currentToken = tokenIterator.getNextToken();
 			
-			if(currentToken.kind == GambiConstants.PARAM){
+			if(currentToken.kind == SegenConstants.PARAM){
 				
 				procedure.setParameter(currentToken.image);
 			
-			}else if(currentToken.kind == GambiConstants.EMPTYPARAM){
+			}else if(currentToken.kind == SegenConstants.EMPTYPARAM){
 				
 				procedure.setParameter("");
 			
@@ -31,7 +31,7 @@ public class ProcedureCreator {
 				//TODO throw syntax exception parameter expected
 			}
 			
-			if(tokenIterator.getNextToken().kind != GambiConstants.BEGIN){
+			if(tokenIterator.getNextToken().kind != SegenConstants.BEGIN){
 				//TODO throw syntax exception (begin expected)
 			}
 			
@@ -41,22 +41,22 @@ public class ProcedureCreator {
 		
 		currentToken = tokenIterator.getNextToken();
 		
-		while (currentToken.kind != GambiConstants.END){
+		while (currentToken.kind != SegenConstants.END){
 			switch(currentToken.kind){
 			    
-				case GambiConstants.TARGET:
+				case SegenConstants.TARGET:
 					statement = SimpleStatementCreator.create(currentToken.image);
 					break;
 			 
-			    case GambiConstants.WEB:
+			    case SegenConstants.WEB:
 			    	statement = WebStatementCreator.create(tokenIterator); 
 			    	break;
 			    
-			    case GambiConstants.MOBILE:
+			    case SegenConstants.MOBILE:
 			    	statement = MobileStatementCretor.create(tokenIterator); 
 			    	break; 
 		            
-			    case GambiConstants.CLICKBUTTON:
+			    case SegenConstants.CLICKBUTTON:
 			    	statement = ClickButtonStatementCreator.create(tokenIterator);
 			    	break;  	            
 		            

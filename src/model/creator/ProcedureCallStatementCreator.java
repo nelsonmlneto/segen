@@ -1,7 +1,7 @@
 package model.creator;
 
 import model.statement.ProcedureCallStatement;
-import parser.GambiConstants;
+import parser.SegenConstants;
 import parser.Token;
 import control.TokenListIterator;
 
@@ -15,12 +15,12 @@ public class ProcedureCallStatementCreator {
 		
 		Token currentToken = tokenIterator.getNextToken();
 		
-		if(currentToken.kind == GambiConstants.ARG){
+		if(currentToken.kind == SegenConstants.ARG){
 			String arg = currentToken.image;
 			arg = arg.substring(1, arg.length() - 1);
 			procedureCall = new ProcedureCallStatement(title, arg);
 			
-		}else if (currentToken.kind == GambiConstants.EMPTYPARAM){
+		}else if (currentToken.kind == SegenConstants.EMPTYPARAM){
 			procedureCall = new ProcedureCallStatement(title);
 			
 		}else{
