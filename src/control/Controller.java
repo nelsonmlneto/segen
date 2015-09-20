@@ -6,6 +6,7 @@ import model.Procedure;
 import model.SimpleTest;
 import model.creator.ProcedureCreator;
 import model.creator.SimpleTestCreator;
+import model.exception.SyntaxException;
 import parser.SegenConstants;
 import parser.Token;
 
@@ -21,12 +22,17 @@ public class Controller {
 	
 	public void createScripts(List<Token> tokens){
 		
-		createScriptModel(tokens);
-		generateTestScripts();
+		try {
+			createScriptModel(tokens);
+			generateTestScripts();
+		} catch (SyntaxException e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
 	
-	private void createScriptModel(List<Token> tokens){
+	private void createScriptModel(List<Token> tokens) throws SyntaxException{
 		
 		script = new ScriptModel();
 		
@@ -51,7 +57,7 @@ public class Controller {
 			    	break;
 			    
 			    default:
-			    	//TODO throw syntax error exception
+			    	throw new SyntaxException("<simple> or <proc> expected at line " + currentToken.beginLine);
 			}
 			currentToken = tokenIterator.getNextToken();
 		}

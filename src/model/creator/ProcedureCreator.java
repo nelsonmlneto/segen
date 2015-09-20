@@ -1,6 +1,7 @@
 package model.creator;
 
 import model.Procedure;
+import model.exception.SyntaxException;
 import model.statement.Statement;
 import parser.SegenConstants;
 import parser.Token;
@@ -8,7 +9,7 @@ import control.TokenListIterator;
 
 public class ProcedureCreator {
 	
-	public static Procedure create(TokenListIterator tokenIterator){
+	public static Procedure create(TokenListIterator tokenIterator) throws SyntaxException{
 		
 		Token currentToken = tokenIterator.getNextToken();
 		Procedure procedure = null;
@@ -28,15 +29,15 @@ public class ProcedureCreator {
 				procedure.setParameter("");
 			
 			}else{
-				//TODO throw syntax exception parameter expected
+				throw new SyntaxException("<[]> expected at line after procedure declaration at line " + currentToken.beginLine);
 			}
 			
 			if(tokenIterator.getNextToken().kind != SegenConstants.BEGIN){
-				//TODO throw syntax exception (begin expected)
+				throw new SyntaxException("<begin> expected at line " + currentToken.beginLine);
 			}
 			
 		}else{
-			//TODO throw syntax exception (test name expected)
+			throw new SyntaxException("Procedure title expected at line " + currentToken.beginLine);
 		}
 		
 		currentToken = tokenIterator.getNextToken();
@@ -61,7 +62,7 @@ public class ProcedureCreator {
 			    	break;  	            
 		            
 			    default:
-			    	//TODO throw syntax error exception
+			    	throw new SyntaxException("Wrong instruction at line " + currentToken.beginLine);
 			}
 			procedure.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();

@@ -1,5 +1,6 @@
 package model.creator;
 
+import model.exception.SyntaxException;
 import model.statement.Statement;
 import model.statement.WebStatement;
 import parser.SegenConstants;
@@ -8,14 +9,14 @@ import control.TokenListIterator;
 
 public class WebStatementCreator {
 
-	public static WebStatement create(TokenListIterator tokenIterator){
+	public static WebStatement create(TokenListIterator tokenIterator) throws SyntaxException{
 		
 		Token currentToken = tokenIterator.getNextToken();
 		WebStatement web = new WebStatement();
 		Statement statement = null;
 		
 		if (currentToken.kind != SegenConstants.BEGIN){
-			//TODO throw syntax exception (BEGIN expected)
+			throw new SyntaxException("<begin> expected at line " + currentToken.beginLine);
 		}
 		
 		currentToken = tokenIterator.getNextToken();
@@ -36,7 +37,7 @@ public class WebStatementCreator {
 		            break;      
 		            
 			    default:
-			    	//TODO throw syntax error exception
+			    	throw new SyntaxException("Wrong instruction at line " + currentToken.beginLine);
 			}
 			
 			web.addStatement(statement);

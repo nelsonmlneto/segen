@@ -1,5 +1,6 @@
 package model.creator;
 
+import model.exception.SyntaxException;
 import model.statement.ClickButtonStatement;
 import parser.SegenConstants;
 import parser.Token;
@@ -7,13 +8,13 @@ import control.TokenListIterator;
 
 public class ClickButtonStatementCreator {
 
-	public static ClickButtonStatement create(TokenListIterator tokenIterator){
+	public static ClickButtonStatement create(TokenListIterator tokenIterator) throws SyntaxException{
 		
 		Token currentToken = tokenIterator.getNextToken();
 		String buttonId = currentToken.image;
 	
 		if(currentToken.kind != SegenConstants.ARG){
-			//TODO throw syntax exception
+			throw new SyntaxException("Button ID expected at line " + currentToken.beginLine);
 		}
 		
 		buttonId = buttonId.substring(2, buttonId.length() - 2);

@@ -1,5 +1,6 @@
 package model.creator;
 
+import model.exception.SyntaxException;
 import model.statement.ProcedureCallStatement;
 import parser.SegenConstants;
 import parser.Token;
@@ -7,7 +8,7 @@ import control.TokenListIterator;
 
 public class ProcedureCallStatementCreator {
 	
-	public static ProcedureCallStatement create(String title, TokenListIterator tokenIterator){
+	public static ProcedureCallStatement create(String title, TokenListIterator tokenIterator) throws SyntaxException{
 		
 		ProcedureCallStatement procedureCall = null;
 		
@@ -24,7 +25,7 @@ public class ProcedureCallStatementCreator {
 			procedureCall = new ProcedureCallStatement(title);
 			
 		}else{
-			//TODO throw syntax exception
+			throw new SyntaxException("<[]> expected at line " + currentToken.beginLine);
 		}
 		
 		return procedureCall;

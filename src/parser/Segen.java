@@ -28,10 +28,7 @@ final static String version = "Segen - Selenium Test Script Generator Prototype 
     }
 
     parser.start();
-    if ( parser.token_source.foundLexError() != 0 )
-        System.out.println(parser.token_source.foundLexError() + " lexical errors found");
-    else
-    System.out.println("Test scritps generated successfully.");
+
 }  // main
 
 static public String im(int x){
@@ -54,14 +51,14 @@ List<Token> tokens = new ArrayList<Token>();
                 while ( st.specialToken != null)
                 st = st.specialToken;
                 do{
-                        System.out.println("Linha: " + st.beginLine +
-                             " Coluna: " + st.beginColumn +
+                        System.out.println("Line: " + st.beginLine +
                              " " + st.image +
                              "  " + im(st.kind) + "  "+t.kind);
                 st = st.next;
         } while (st != t.next);
         } while (t.kind != SegenConstants.EOF);
 
+    System.out.println("");
     Controller controller = Controller.getInstance();
     controller.createScripts(tokens);
   }

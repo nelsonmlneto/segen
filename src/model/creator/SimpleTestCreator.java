@@ -1,6 +1,7 @@
 package model.creator;
 
 import model.SimpleTest;
+import model.exception.SyntaxException;
 import model.statement.Statement;
 import parser.SegenConstants;
 import parser.Token;
@@ -8,7 +9,7 @@ import control.TokenListIterator;
 
 public class SimpleTestCreator {
 
-	public static SimpleTest create(TokenListIterator tokenIterator){
+	public static SimpleTest create(TokenListIterator tokenIterator) throws SyntaxException{
 		
 		Token currentToken = tokenIterator.getNextToken();
 		SimpleTest test = null;
@@ -20,11 +21,11 @@ public class SimpleTestCreator {
 			currentToken = tokenIterator.getNextToken();
 			
 			if(currentToken.kind != SegenConstants.BEGIN){
-				//TODO throw syntax exception (begin expected)
+				throw new SyntaxException("<begin> expected at line " + currentToken.beginLine);
 			}
 			
 		}else{
-			//TODO throw syntax exception (test name expected)
+			throw new SyntaxException("Test title expected at line " + currentToken.beginLine);
 		}
 		
 		currentToken = tokenIterator.getNextToken();
@@ -53,7 +54,7 @@ public class SimpleTestCreator {
 		            break;     
 		            
 			    default:
-			    	//TODO throw syntax error exception
+			    	throw new SyntaxException("Wrong instruction at line " + currentToken.beginLine);
 			}
 			test.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();
