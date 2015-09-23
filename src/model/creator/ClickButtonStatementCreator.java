@@ -4,7 +4,7 @@ import model.exception.SyntaxException;
 import model.statement.ClickButtonStatement;
 import parser.SegenConstants;
 import parser.Token;
-import control.TokenListIterator;
+import control.converter.TokenListIterator;
 
 public class ClickButtonStatementCreator {
 

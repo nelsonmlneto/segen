@@ -5,7 +5,7 @@ import model.exception.SyntaxException;
 import model.statement.Statement;
 import parser.SegenConstants;
 import parser.Token;
-import control.TokenListIterator;
+import control.converter.TokenListIterator;
 
 public class SimpleTestCreator {
 

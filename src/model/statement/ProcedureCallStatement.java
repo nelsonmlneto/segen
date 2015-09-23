@@ -15,12 +15,11 @@ public class ProcedureCallStatement extends Statement {
 		this.arg = "";
 	}
 
-	@Override
-	public String getStatement(){
-		//TODO remove, not used
-		//return "Procedure " + title + " " + arg;
-		return "";
+	public String getTitle() {
+		return title;
 	}
-	
-	
+
+	public String getArg() {
+		return arg;
+	}	
 }

@@ -5,7 +5,6 @@ options {
 PARSER_BEGIN(Segen)
 
 package parser;
-import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import control.Controller;
@@ -13,6 +12,8 @@ import control.Controller;
 
 public class Segen {
 final static String version = "Segen - Selenium Test Script Generator Prototype for Web and Mobile environment  - Version 1.0 - 2015";
+
+public static String baseFilename;;
 
   // Main method  
   public  static void main(String args[]) throws ParseException {
@@ -25,6 +26,12 @@ final static String version = "Segen - Selenium Test Script Generator Prototype 
 
     filename = args[args.length-1];  
     System.out.println("Reading file " + filename + " . . .");
+
+    int pos = filename.lastIndexOf(".");
+    if (pos > 0) {
+        baseFilename = filename.substring(0, pos);
+    }
+
     try {
       parser = new Segen(new java.io.FileInputStream(filename));
     }catch (java.io.FileNotFoundException e) {
@@ -185,6 +192,6 @@ List<Token> tokens = new ArrayList<Token>();
 
     System.out.println("");
     Controller controller = Controller.getInstance();
-    controller.createScripts(tokens);
+    controller.createScripts(tokens,baseFilename);
     
   }

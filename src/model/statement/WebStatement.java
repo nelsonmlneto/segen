@@ -15,6 +15,10 @@ public class WebStatement extends Statement {
 		statements.add(statement);
 	}
 	
+	public List<Statement> getStatements() {
+		return statements;
+	}
+
 	@Override
 	public String getStatement(){
 		String list = "";

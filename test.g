@@ -7,7 +7,7 @@ beforeAll begin
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     end
 
-    @mobile begin
+    @mobile begin    
 		SelendroidCapabilities capa = new SelendroidCapabilities();
 	  	capa.setAut("com.shems.mobile:1.0");	  
       	capa.setPlatformVersion(DeviceTargetPlatform.ANDROID19);     
@@ -45,6 +45,13 @@ proc openButton [buttonId] begin
     new Actions(driver).sendKeys(SelendroidKeys.BACK).perform();
     driver.findElement(By.linkText("Objects")).click();
     @clickButton["openButton"]
+end
+
+proc openPage [] begin
+    @web begin
+        driver.get(baseUrl+"/1");
+        driver.get(baseUrl+"/2");
+    end
 end
 
 afterAll begin

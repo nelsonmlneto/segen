@@ -5,7 +5,7 @@ import model.exception.SyntaxException;
 import model.statement.Statement;
 import parser.SegenConstants;
 import parser.Token;
-import control.TokenListIterator;
+import control.converter.TokenListIterator;
 
 public class ProcedureCreator {
 	
@@ -21,8 +21,9 @@ public class ProcedureCreator {
 			currentToken = tokenIterator.getNextToken();
 			
 			if(currentToken.kind == SegenConstants.PARAM){
-				
-				procedure.setParameter(currentToken.image);
+				String param = currentToken.image;
+				param = "\\$"+param.substring(1, param.length() - 1);
+				procedure.setParameter(param);
 			
 			}else if(currentToken.kind == SegenConstants.EMPTYPARAM){
 				

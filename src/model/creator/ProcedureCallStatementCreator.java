@@ -4,7 +4,7 @@ import model.exception.SyntaxException;
 import model.statement.ProcedureCallStatement;
 import parser.SegenConstants;
 import parser.Token;
-import control.TokenListIterator;
+import control.converter.TokenListIterator;
 
 public class ProcedureCallStatementCreator {
 	
@@ -12,7 +12,7 @@ public class ProcedureCallStatementCreator {
 		
 		ProcedureCallStatement procedureCall = null;
 		
-		title = title.substring(1, title.length() - 1);
+		title = title.substring(1, title.length());
 		
 		Token currentToken = tokenIterator.getNextToken();
 		

@@ -5,7 +5,7 @@ import model.statement.MobileStatement;
 import model.statement.Statement;
 import parser.SegenConstants;
 import parser.Token;
-import control.TokenListIterator;
+import control.converter.TokenListIterator;
 
 public class MobileStatementCretor {
 
@@ -32,9 +32,9 @@ public class MobileStatementCretor {
 			    	statement = ClickButtonStatementCreator.create(tokenIterator);
 		            break;      
 		            
-		    	case SegenConstants.PROCALL:
-		    		statement = ProcedureCallStatementCreator.create(currentToken.image, tokenIterator);
-		            break;      
+//		    	case SegenConstants.PROCALL:
+//		    		statement = ProcedureCallStatementCreator.create(currentToken.image, tokenIterator);
+//		            break;      
 		            
 			    default:
 			    	throw new SyntaxException("Wrong instruction at line " + currentToken.beginLine);
