@@ -89,6 +89,7 @@ TOKEN :
 | < ASSERTLABEL: "@assertLabel" >
 | < BEFOREALL: "beforeAll" >
 | < AFTERALL: "afterAll" >
+| < HEADER: "header" >
 }
 
 TOKEN :

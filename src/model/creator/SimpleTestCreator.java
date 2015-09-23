@@ -60,11 +60,12 @@ public class SimpleTestCreator {
 			currentToken = tokenIterator.getNextToken();
 		}
 		
-		System.out.println(">> Listing simple test: " + test.getTitle());
-		for(Statement t : test.getStatements()){
-			System.out.println(t.getStatement());
-		}
-		System.out.println("");
+		//TODO remove		
+//		System.out.println(">> Listing simple test: " + test.getTitle());
+//		for(Statement t : test.getStatements()){
+//			System.out.println(t.getStatement());
+//		}
+//		System.out.println("");
 		
 		return test;
 	}

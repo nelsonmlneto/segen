@@ -4,10 +4,12 @@ import java.util.List;
 
 import model.AfterAll;
 import model.BeforeAll;
+import model.Header;
 import model.Procedure;
 import model.SimpleTest;
 import model.creator.AfterAllCreator;
 import model.creator.BeforeAllCreator;
+import model.creator.HeaderCreator;
 import model.creator.ProcedureCreator;
 import model.creator.SimpleTestCreator;
 import model.exception.SyntaxException;
@@ -61,6 +63,17 @@ public class ScriptModelCreator {
 			    	}
 			    	
 			    	break;
+			    	
+		    	case SegenConstants.HEADER:
+			    	
+			    	if(script.containsHeader()){
+			    		throw new SyntaxException("Only one <header> structure allowed");
+			    	}else{
+			    		Header header = HeaderCreator.create(tokenIterator);
+			    		script.setHeader(header);
+			    	}
+			    	
+			    	break;	
 			    
 			    default:
 			    	throw new SyntaxException("<simple>, <proc>, <beforeAll> or <afterAll> expected at line " + currentToken.beginLine);

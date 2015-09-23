@@ -68,12 +68,13 @@ public class ProcedureCreator {
 			procedure.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();
 		}
-		
-		System.out.println(">> Listing Procedure: " + procedure.getTitle());
-		for(Statement t : procedure.getStatements()){
-			System.out.println(t.getStatement());
-		}
-		System.out.println("");
+
+		//TODO remove
+//		System.out.println(">> Listing Procedure: " + procedure.getTitle());
+//		for(Statement t : procedure.getStatements()){
+//			System.out.println(t.getStatement());
+//		}
+//		System.out.println("");
 		
 		return procedure;
 	}	

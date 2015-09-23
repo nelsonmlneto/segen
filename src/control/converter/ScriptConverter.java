@@ -3,13 +3,16 @@ package control.converter;
 import java.io.IOException;
 import java.util.List;
 
+import model.AfterAll;
+import model.BeforeAll;
+import model.Header;
 import model.Procedure;
 import model.SimpleTest;
 import model.statement.MobileStatement;
 import model.statement.ProcedureCallStatement;
 import model.statement.Statement;
 import model.statement.WebStatement;
-import control.generator.ScriptsGenerator;
+import control.generator.ScriptGenerator;
 
 public class ScriptConverter {
 
@@ -17,15 +20,17 @@ public class ScriptConverter {
 	
 	private ScriptModel scriptModel;
 	
-	private ScriptsGenerator generator;
+	private ScriptGenerator generator;
 	
 	private ScriptConverter(){}
 	
-	public void convert(ScriptModel scriptModel, ScriptsGenerator generator, String testSuiteName) throws IOException{
+	public void convert(ScriptModel scriptModel, ScriptGenerator generator, String testSuiteName) throws IOException{
 		this.scriptModel = scriptModel;
 		this.generator = generator;
 	
 		this.generator.addTestSuiteName(testSuiteName);
+		
+		convertHeader();
 		
 		convertBeforeAll();
 
@@ -37,24 +42,34 @@ public class ScriptConverter {
 		
 	}
 	
+	private void convertHeader(){
+		Header header = scriptModel.getHeader();
+		StringConverter stringCon = convertTestStatements(header.getStatements());
+		this.generator.setHeaderWeb(stringCon.getStatementsWeb());
+		this.generator.setHeaderMobile(stringCon.getStatementsMobile());	
+	}
+	
 	private void convertBeforeAll(){
-		//TODO
+		BeforeAll beforeAll = scriptModel.getBeforeAll();
+		StringConverter stringCon = convertTestStatements(beforeAll.getStatements());
+		this.generator.setBeforeAllWeb(stringCon.getStatementsWeb());
+		this.generator.setBeforeAllMobile(stringCon.getStatementsMobile());	
 	}
 	
 	private void convertTestCases(){
 		StringConverter stringCon;
 		for(SimpleTest test : scriptModel.getSimpleTests()){
-			stringCon = convertTestStatements(test);
+			stringCon = convertTestStatements(test.getStatements());
 			this.generator.addTestCaseWeb(test.getTitle(), stringCon.getStatementsWeb());
 			this.generator.addTestCaseMobile(test.getTitle(), stringCon.getStatementsMobile());
 		}
 	}
 	
-	private StringConverter convertTestStatements(SimpleTest test){
+	private StringConverter convertTestStatements(List<Statement> testStatList){
 		
 		StringConverter stringCon = new StringConverter();
 		
-		for(Statement stat : test.getStatements()){
+		for(Statement stat : testStatList){
 			if(stat instanceof WebStatement){
 				stringCon.addStatementWeb(stat.getStatement());
 				
@@ -126,7 +141,10 @@ public class ScriptConverter {
 	}
 	
 	private void convertAfterAll(){
-		//TODO
+		AfterAll afterAll = scriptModel.getAfterAll();
+		StringConverter stringCon = convertTestStatements(afterAll.getStatements());
+		this.generator.setAfterAllWeb(stringCon.getStatementsWeb());
+		this.generator.setAfterAllMobile(stringCon.getStatementsMobile());
 	}
 	
 	public static ScriptConverter getInstance(){

@@ -12,7 +12,6 @@ public class BeforeAll {
 	public BeforeAll(){
 		statements = new ArrayList<Statement>();
 	}
-	
 
 	public void addStatement(Statement statement){
 		statements.add(statement);

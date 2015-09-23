@@ -1,16 +1,17 @@
 package model.creator;
 
-import model.BeforeAll;
+import model.Header;
 import model.exception.SyntaxException;
 import model.statement.Statement;
 import parser.SegenConstants;
 import parser.Token;
 import control.converter.TokenListIterator;
-public class BeforeAllCreator {
-	
-	public static BeforeAll create(TokenListIterator tokenIterator) throws SyntaxException{
+
+public class HeaderCreator {
+
+	public static Header create(TokenListIterator tokenIterator) throws SyntaxException{
 		
-		BeforeAll beforeAll = new BeforeAll();
+		Header header = new Header();
 		Statement statement = null;
 		
 		Token currentToken = tokenIterator.getNextToken();
@@ -39,19 +40,13 @@ public class BeforeAllCreator {
 			    default:
 			    	throw new SyntaxException("Wrong instruction for <beforeAll> at line " + currentToken.beginLine);
 			}
-			beforeAll.addStatement(statement);
+			header.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();
 		}
 		
-
-		//TODO remove
-//		System.out.println(">> BeforeAll");
-//		for(Statement t : beforeAll.getStatements()){
-//			System.out.println(t.getStatement());
-//		}
-//		System.out.println("");
 		
-		return beforeAll;
+		return header;
 
-	}	
+	}
+	
 }

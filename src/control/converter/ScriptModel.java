@@ -7,6 +7,7 @@ import java.util.Map;
 
 import model.AfterAll;
 import model.BeforeAll;
+import model.Header;
 import model.Procedure;
 import model.SimpleTest;
 
@@ -16,6 +17,7 @@ public class ScriptModel {
 	private Map<String,Procedure> procedures;
 	private BeforeAll beforeAll;
 	private AfterAll afterAll;
+	private Header header;
 	
 	public ScriptModel(){
 		simpleTests = new ArrayList<SimpleTest>();
@@ -74,6 +76,22 @@ public class ScriptModel {
 			return false;
 		return true;
 	}
+
+	public Header getHeader() {
+		return header;
+	}
+
+	public void setHeader(Header header) {
+		this.header = header;
+	}
+	
+	public boolean containsHeader(){
+		if(this.header == null)
+			return false;
+		return true;
+	}
+	
+	
 	
 	
 	

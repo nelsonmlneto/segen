@@ -1,3 +1,10 @@
+header begin
+    import org.openqa.selenium.*;
+
+    @mobile begin
+        import io.selendroid.*;
+    end
+end
 
 beforeAll begin
     @web begin

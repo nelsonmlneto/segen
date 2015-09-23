@@ -43,12 +43,13 @@ public class AfterAllCreator {
 			afterAll.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();
 		}
-		
-		System.out.println(">> AfterAll");
-		for(Statement t : afterAll.getStatements()){
-			System.out.println(t.getStatement());
-		}
-		System.out.println("");
+
+		//TODO remove
+//		System.out.println(">> AfterAll");
+//		for(Statement t : afterAll.getStatements()){
+//			System.out.println(t.getStatement());
+//		}
+//		System.out.println("");
 		
 		return afterAll;
 

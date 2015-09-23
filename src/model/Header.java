@@ -5,14 +5,14 @@ import java.util.List;
 
 import model.statement.Statement;
 
-public class AfterAll {
+public class Header {
 	
 	private List<Statement> statements;
 	
-	public AfterAll(){
+	public Header(){
 		statements = new ArrayList<Statement>();
 	}
-	
+
 	public void addStatement(Statement statement){
 		statements.add(statement);
 	}
@@ -20,5 +20,4 @@ public class AfterAll {
 	public List<Statement> getStatements() {
 		return statements;
 	}
-
 }
