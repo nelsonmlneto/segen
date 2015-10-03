@@ -1,0 +1,60 @@
+header begin
+    import org.openqa.selenium.*;
+
+    @mobile begin
+        import io.selendroid.*;
+    end
+end
+
+beforeAll begin
+    @web begin
+		System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+		driver = new ChromeDriver();	  
+		baseUrl = "http://localhost:3000/";
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    end
+
+    @mobile begin    
+		SelendroidCapabilities capa = new SelendroidCapabilities();
+	  	capa.setAut("com.shems.mobile:1.0");	  
+      	capa.setPlatformVersion(DeviceTargetPlatform.ANDROID19);     
+     	capa.setEmulator(true);
+      	capa.setModel("Galaxy Nexus");
+  		driver = new SelendroidDriver(capa);
+    end
+end
+
+simple testGoalAndConsumedMarch begin
+    @openPage[]
+    @openMonthSelector["1"]
+    assertEquals("100", driver.findElement(By.id("textGoal")).getText());
+    assertEquals("84", driver.findElement(By.id("textConsumed")).getText());
+end    
+
+simple testGoalAndConsumedFebruary begin
+    @openPage[]
+    @openMonthSelector["2"]
+    assertEquals("100", driver.findElement(By.id("goal")).getText());
+    assertEquals("89", driver.findElement(By.id("consumed")).getText());
+end  
+
+proc openPage [] begin
+    @web begin
+        driver.get(baseUrl + "/");
+    end
+end
+
+proc openMonthSelector [monthIndex] begin
+    @web begin
+        driver.findElement(By.cssSelector("#month-select > option[value="+$monthIndex+"]")).click();
+    end
+    
+    @mobile begin 
+        driver.findElement(By.linkText("March")).click();
+        driver.findElement(By.xpath("//AppCompatTextView["+$monthIndex+"]")).click();
+    end    
+end
+
+afterAll begin
+	 driver.quit(); 
+end
