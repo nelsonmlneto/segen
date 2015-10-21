@@ -1,0 +1,84 @@
+header begin
+    import org.openqa.selenium.*;
+
+    @mobile begin
+        import io.selendroid.*;
+    end
+end
+
+beforeAll begin
+    @web begin
+		System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+		driver = new ChromeDriver();	  
+		baseUrl = "http://localhost:3000/";
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    end
+
+    @mobile begin    
+		SelendroidCapabilities capa = new SelendroidCapabilities();
+	  	capa.setAut("com.shems.mobile:1.0");	  
+      	capa.setPlatformVersion(DeviceTargetPlatform.ANDROID19);     
+     	capa.setEmulator(true);
+      	capa.setModel("Galaxy Nexus");
+  		driver = new SelendroidDriver(capa);
+    end
+end
+
+simple testObjectFilterAll begin
+    @goToObjectFilter[]
+    assertTrue(TestHelper.isElementPresent(By.linkText("Air Conditioner")));
+    assertTrue(TestHelper.isElementPresent(By.linkText("Clothes Iron")));
+    assertTrue(TestHelper.isElementPresent(By.linkText("Hair Straightener")));
+    assertTrue(TestHelper.isElementPresent(By.linkText("Couple Bedroom Light")));
+    assertTrue(TestHelper.isElementPresent(By.linkText("Oven")));
+    assertTrue(TestHelper.isElementPresent(By.linkText("Kitchen Light")));
+    assertTrue(TestHelper.isElementPresent(By.linkText("TV")));
+    assertTrue(TestHelper.isElementPresent(By.linkText("Garage Light")));
+
+    @mobile begin
+        WebElement objList = driver.findElement(By.id("listViewObj"));
+        TouchActions touch = new TouchActions(driver).flick(objList, 0, -200, 0);
+        touch.perform();
+    end
+
+    assertTrue(TestHelper.isElementPresent(By.linkText("Shaving Machine")));
+end     
+
+simple testObjectFilterKitchen begin
+    @goToObjectFilter[]
+    @clickObjectFilter["2"]
+    assertTrue(TestHelper.isElementPresent(By.linkText("Hair Straightener"))); 
+    assertTrue(TestHelper.isElementPresent(By.linkText("Shaving Machine")));
+    assertFalse(TestHelper.isElementPresent(By.linkText("Air Conditioner")));
+    assertFalse(TestHelper.isElementPresent(By.linkText("Clothers Iron")));  
+    assertFalse(TestHelper.isElementPresent(By.linkText("Couple Bedroom Light")));
+    assertFalse(TestHelper.isElementPresent(By.linkText("Oven")));
+    assertFalse(TestHelper.isElementPresent(By.linkText("Kitchen Light")));  
+    assertFalse(TestHelper.isElementPresent(By.linkText("TV")));
+    assertFalse(TestHelper.isElementPresent(By.linkText("Garage Light"))); 
+end
+
+proc goToObjectFilter[] begin
+    @web begin
+        driver.get(baseUrl + "/");
+    end
+
+    @mobile begin
+        driver.findElement(By.linkText("Objects")).click();
+    end
+end
+
+proc clickObjectFilter[roomIndex] begin
+    @web begin
+        driver.findElement(By.cssSelector("#room-select > option[value="+$roomIndex+"]")).click();
+    end
+
+    @mobile begin
+       driver.findElement(By.linkText("All")).click();
+       driver.findElement(By.xpath("//AppCompatTextView["+$roomIndex+"]")).click();
+    end
+end
+
+afterAll begin
+	 driver.quit(); 
+end
