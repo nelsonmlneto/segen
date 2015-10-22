@@ -1,10 +1,10 @@
 package model.creator;
 
+import lexicalAnalyzer.SegenConstants;
 import model.Procedure;
 import model.exception.SyntaxException;
 import model.statement.Statement;
-import parser.SegenConstants;
-import parser.Token;
+import lexicalAnalyzer.Token;
 import control.converter.TokenListIterator;
 
 public class ProcedureCreator {

@@ -1,17 +1,17 @@
 package model.creator;
 
 import lexicalAnalyzer.SegenConstants;
-import model.AfterAll;
+import lexicalAnalyzer.Token;
+import model.Global;
 import model.exception.SyntaxException;
 import model.statement.Statement;
-import lexicalAnalyzer.Token;
 import control.converter.TokenListIterator;
 
-public class AfterAllCreator {
-	
-	public static AfterAll create(TokenListIterator tokenIterator) throws SyntaxException{
+public class GlobalCreator {
+
+	public static Global create(TokenListIterator tokenIterator) throws SyntaxException{
 		
-		AfterAll afterAll = new AfterAll();
+		Global global = new Global();
 		Statement statement = null;
 		
 		Token currentToken = tokenIterator.getNextToken();
@@ -38,20 +38,16 @@ public class AfterAllCreator {
 			    	break;     
 		            
 			    default:
-			    	throw new SyntaxException("Wrong instruction for <afterAll> at line " + currentToken.beginLine);
+			    	throw new SyntaxException("Wrong instruction for <beforeAll> at line " + currentToken.beginLine);
 			}
-			afterAll.addStatement(statement);
+			global.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();
 		}
-
-		//TODO remove
-//		System.out.println(">> AfterAll");
-//		for(Statement t : afterAll.getStatements()){
-//			System.out.println(t.getStatement());
-//		}
-//		System.out.println("");
 		
-		return afterAll;
+		
+		return global;
 
-	}	
+	}
+
+
 }

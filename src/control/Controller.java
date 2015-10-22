@@ -1,13 +1,16 @@
 package control;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import lexicalAnalyzer.LexicalAnalyzer;
+import lexicalAnalyzer.ParseException;
+import model.ScriptModel;
+import model.creator.ScriptModelCreator;
 import model.exception.SyntaxException;
-import parser.Token;
+import lexicalAnalyzer.Token;
 import control.converter.ScriptConverter;
-import control.converter.ScriptModel;
-import control.converter.ScriptModelCreator;
 import control.generator.ScriptGeneratorJava;
 
 public class Controller {
@@ -18,11 +21,21 @@ public class Controller {
 	
 	private Controller(){}
 	
-	public void createScripts(List<Token> tokens, String testSuiteName){
+	public void createScripts(FileInputStream file, String testSuiteName){
+				
+//		List<Token> tokens;
+//		try {
+//			tokens = LexicalAnalyzer.analyze(file);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 		
 		try {
+			List<Token> tokens = LexicalAnalyzer.analyze(file);
 			script = ScriptModelCreator.create(tokens);
 		} catch (SyntaxException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}	
 
@@ -32,8 +45,7 @@ public class Controller {
 			converter.convert(script, generator, testSuiteName);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-			
+		}	
 		
 	}
 	

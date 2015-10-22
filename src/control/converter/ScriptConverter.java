@@ -5,8 +5,10 @@ import java.util.List;
 
 import model.AfterAll;
 import model.BeforeAll;
+import model.Global;
 import model.Header;
 import model.Procedure;
+import model.ScriptModel;
 import model.SimpleTest;
 import model.statement.MobileStatement;
 import model.statement.ProcedureCallStatement;
@@ -32,6 +34,8 @@ public class ScriptConverter {
 		
 		convertHeader();
 		
+		convertGlobal();
+		
 		convertBeforeAll();
 
 		convertTestCases();
@@ -43,17 +47,35 @@ public class ScriptConverter {
 	}
 	
 	private void convertHeader(){
-		Header header = scriptModel.getHeader();
-		StringConverter stringCon = convertTestStatements(header.getStatements());
-		this.generator.setHeaderWeb(stringCon.getStatementsWeb());
-		this.generator.setHeaderMobile(stringCon.getStatementsMobile());	
+		if(scriptModel.containsHeader()){
+			Header header = scriptModel.getHeader();
+			StringConverter stringCon = convertTestStatements(header.getStatements());
+			this.generator.setHeaderWeb(stringCon.getStatementsWeb());
+			this.generator.setHeaderMobile(stringCon.getStatementsMobile());
+		}
+		
+			
+	}
+	
+	private void convertGlobal(){
+		if(scriptModel.containsGlobal()){
+			Global global = scriptModel.getGlobal();
+			StringConverter stringCon = convertTestStatements(global.getStatements());
+			this.generator.setGlobalWeb(stringCon.getStatementsWeb());
+			this.generator.setGlobalMobile(stringCon.getStatementsMobile());
+		}
+		
+			
 	}
 	
 	private void convertBeforeAll(){
-		BeforeAll beforeAll = scriptModel.getBeforeAll();
-		StringConverter stringCon = convertTestStatements(beforeAll.getStatements());
-		this.generator.setBeforeAllWeb(stringCon.getStatementsWeb());
-		this.generator.setBeforeAllMobile(stringCon.getStatementsMobile());	
+		if(scriptModel.containsBeforeAll()){
+			BeforeAll beforeAll = scriptModel.getBeforeAll();
+			StringConverter stringCon = convertTestStatements(beforeAll.getStatements());
+			this.generator.setBeforeAllWeb(stringCon.getStatementsWeb());
+			this.generator.setBeforeAllMobile(stringCon.getStatementsMobile());	
+		}
+		
 	}
 	
 	private void convertTestCases(){
@@ -141,10 +163,14 @@ public class ScriptConverter {
 	}
 	
 	private void convertAfterAll(){
-		AfterAll afterAll = scriptModel.getAfterAll();
-		StringConverter stringCon = convertTestStatements(afterAll.getStatements());
-		this.generator.setAfterAllWeb(stringCon.getStatementsWeb());
-		this.generator.setAfterAllMobile(stringCon.getStatementsMobile());
+		
+		if(scriptModel.containsAfterAll()){
+			AfterAll afterAll = scriptModel.getAfterAll();
+			StringConverter stringCon = convertTestStatements(afterAll.getStatements());
+			this.generator.setAfterAllWeb(stringCon.getStatementsWeb());
+			this.generator.setAfterAllMobile(stringCon.getStatementsMobile());
+		}
+		
 	}
 	
 	public static ScriptConverter getInstance(){

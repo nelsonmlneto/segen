@@ -1,0 +1,172 @@
+options {
+  STATIC = false;
+}
+
+PARSER_BEGIN(LexicalAnalyzer)
+
+package lexicalAnalyzer;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class LexicalAnalyzer {
+final static String version = "Segen - Selenium Test Script Generator Prototype for Web and Mobile environment  - Version 1.0 - 2015";
+
+  public static List<Token> analyze(FileInputStream script) throws ParseException{
+    
+    LexicalAnalyzer analyzer = new LexicalAnalyzer(script);   
+    return analyzer.start();
+    
+  }
+
+static public String im(int x){
+  int k;
+  String s;
+  s = tokenImage[x];
+  k = s.lastIndexOf("\"");
+  try {s = s.substring(1,k);}
+  catch (StringIndexOutOfBoundsException e){}
+  return s;
+}
+
+}  // LexicalAnalyzer
+
+PARSER_END(LexicalAnalyzer)
+
+TOKEN_MGR_DECLS : {
+  int countLexError = 0;
+
+  public int foundLexError(){
+    return countLexError;
+  }
+}
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| "\f"
+}
+
+/* Reserved words */
+
+TOKEN :
+{
+  < SIMPLETEST: "simple" >
+| < BEGIN: "begin" >
+| < END: "end" >
+| < MULTIPLETEST: "multiple" >
+| < PROCEDURE: "proc" >
+| < WEB: "@web" >
+| < MOBILE: "@mobile" >
+| < CLICKBUTTON: "@clickButton" >
+| < ASSERTLABEL: "@assertLabel" >
+| < BEFOREALL: "beforeAll" >
+| < AFTERALL: "afterAll" >
+| < HEADER: "header" >
+| < GLOBAL: "global" >
+}
+
+TOKEN :
+{
+  < TARGET: <LETTER> (<LETTER>|<DIGIT>|<APAREN>|<FPAREN>|<ACHAVE>|<FCHAVE>|<ACOUCHE>|<FCOUCHE>|<PONTOEVIRGULA>|<VIRGULA>|<PONTO>|<ATRIBUICAO>|<MAIORQUE>|<MENORQUE>|<NEG>|<MAIS>|<MENOS>|<ESTRELA>|<BARRA>|<MODULO>|<AND>|<OR>|<NOT>|<SQUOTE>|<DQUOTE>| "$" | " " | ":" | "#" )* ";" >
+|
+  < #LETTER:["A"-"Z","a"-"z"] >
+|
+  < #DIGIT:["0"-"9"] >
+|    
+  < #APAREN: "(" >
+| 
+  < #FPAREN: ")" > 
+| 
+  < #ACHAVE: "{" > 
+| 
+  < #FCHAVE: "}" > 
+| 
+  < #ACOUCHE: "[" > 
+| 
+  < #FCOUCHE: "]" >
+| 
+  < #PONTOEVIRGULA: ";" >
+| 
+  < #VIRGULA: "," >
+| 
+  < #PONTO: "." >
+|  
+  < #ATRIBUICAO: "=" >
+| 
+  < #MAIORQUE: ">" >
+| 
+  < #MENORQUE: "<" >
+| 
+  < #NEG: "!" >
+| 
+  < #MAIS: "+" >
+| 
+  < #MENOS: "-" >
+| 
+  < #ESTRELA: "*" >
+| 
+  < #BARRA: "/" >
+| 
+  < #MODULO: "%" > 
+| 
+  < #AND: "&" >
+| 
+  < #OR: "|" > 
+| 
+  < #NOT: "~" > 
+| 
+  < #SQUOTE: "\'" > 
+| 
+  < #DQUOTE: "\"" >      
+}
+
+TOKEN :
+{
+  < PROCALL: "@" (["A"-"Z","a"-"z"]|["0"-"9"])* >
+}
+
+TOKEN :
+{
+  < PARAM: "[" (( ["A"-"Z","a"-"z"](["A"-"Z","a"-"z"] | ["0"-"9"] )* ) ) "]">
+}
+
+
+TOKEN :
+{
+  < IDENT: ["A"-"Z","a"-"z"](["A"-"Z","a"-"z"]|["0"-"9"])* >
+}
+
+TOKEN :
+{
+  < ARG: "[" "\"" (["A"-"Z","a"-"z"] | ["0"-"9"] | " ")* "\"" "]" >
+}
+
+TOKEN :
+{
+  < EMPTYPARAM: "[" "]" >
+}
+
+JAVACODE List<Token> start() throws ParseException, ParseException {
+  List<Token> tokens = new ArrayList<Token>();
+    Token t;
+    do{
+    t = getNextToken();
+    tokens.add(t);
+    Token st = t;
+            while ( st.specialToken != null)
+            st = st.specialToken;
+            do{
+                    System.out.println("Line: " + st.beginLine +
+                         " " + st.image +
+                         "  " + im(st.kind) + "  "+t.kind);
+            st = st.next;
+    } while (st != t.next);
+    } while (t.kind != LexicalAnalyzerConstants.EOF);
+
+  return tokens;
+}

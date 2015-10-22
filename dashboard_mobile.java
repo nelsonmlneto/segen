@@ -5,6 +5,8 @@ import model.BeforeAll;
 import org.junit.Test;
 
 class dashboard {
+private static WebDriver driver;
+
   @BeforeAll
   void setUpAll() {
     SelendroidCapabilities capa = new SelendroidCapabilities();

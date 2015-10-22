@@ -26,9 +26,17 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	
 	private String headerMobile;
 	
+	private String globalWeb;
+	
+	private String globalMobile;
+	
 	public ScriptGeneratorJava(){
 		this.methodsWeb = new ArrayList<MethodSpec>();
 		this.methodsMobile = new ArrayList<MethodSpec>();
+		this.headerWeb = "";
+		this.headerMobile = "";
+		this.globalWeb = "";
+		this.globalMobile = "";
 	}
 	
 	@Override
@@ -44,6 +52,16 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	@Override
 	public void setHeaderMobile(String headerMobile) {
 		this.headerMobile = headerMobile;
+	}
+	
+	@Override
+	public void setGlobalWeb(String globalWeb){
+		this.globalWeb = globalWeb;
+	}
+	
+	@Override
+	public void setGlobalMobile(String globalMobile){
+		this.globalMobile = globalMobile;
 	}
 	
 	@Override
@@ -65,6 +83,7 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 				.build();
 		methodsMobile.add(method);
 	}
+
 	
 	@Override
 	public void addTestCaseWeb(String title, String statements){
@@ -121,7 +140,12 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 		    .build();
 
 		PrintWriter writer = new PrintWriter(testSuiteName+"_web.java", "UTF-8");
-		writer.println(headerWeb + javaFileWeb.toString());
+		
+		String testWebString;
+		String poetTest = javaFileWeb.toString();
+		String[] parts = poetTest.split("\\{",2);
+		testWebString = headerWeb + parts[0] + "{\n" + globalWeb +  parts[1]; 		
+		writer.println(testWebString);
 		writer.close();
 	}
 	
@@ -133,8 +157,14 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 		    .build();
 
 		PrintWriter writer = new PrintWriter(testSuiteName+"_mobile.java", "UTF-8");
-		writer.println(headerMobile + javaFileMob.toString());
+		
+		String testMobileString;
+		String poetTest = javaFileMob.toString();
+		String[] parts = poetTest.split("\\{",2);
+		testMobileString = headerMobile + parts[0] + "{\n" + globalMobile +  parts[1]; 		
+		writer.println(testMobileString);
 		writer.close();
+		
 	}
 	
 	

@@ -10,6 +10,10 @@ public interface ScriptGenerator {
 	
 	public void setHeaderMobile(String headerMobile);
 	
+	public void setGlobalWeb(String globalWeb);
+	
+	public void setGlobalMobile(String globalMobile);
+	
 	public void setBeforeAllWeb(String statementsWeb);
 	
 	public void setBeforeAllMobile(String statementsMobile);

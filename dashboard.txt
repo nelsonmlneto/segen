@@ -6,6 +6,14 @@ header begin
     end
 end
 
+global begin
+    private static WebDriver driver;
+    
+    @web begin
+        private static String baseUrl;
+    end    
+end
+
 beforeAll begin
     @web begin
 		System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");

@@ -1,9 +1,9 @@
 package model.creator;
 
+import lexicalAnalyzer.SegenConstants;
 import model.exception.SyntaxException;
 import model.statement.ProcedureCallStatement;
-import parser.SegenConstants;
-import parser.Token;
+import lexicalAnalyzer.Token;
 import control.converter.TokenListIterator;
 
 public class ProcedureCallStatementCreator {

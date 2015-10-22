@@ -4,6 +4,9 @@ import model.BeforeAll;
 import org.junit.Test;
 
 class dashboard {
+private static WebDriver driver;
+private static String baseUrl;
+
   @BeforeAll
   void setUpAll() {
     System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");

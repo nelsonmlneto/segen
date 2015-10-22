@@ -1,10 +1,10 @@
 package model.creator;
 
+import lexicalAnalyzer.SegenConstants;
 import model.exception.SyntaxException;
 import model.statement.Statement;
 import model.statement.WebStatement;
-import parser.SegenConstants;
-import parser.Token;
+import lexicalAnalyzer.Token;
 import control.converter.TokenListIterator;
 
 public class WebStatementCreator {

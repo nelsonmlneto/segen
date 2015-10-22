@@ -2,7 +2,7 @@ package control.converter;
 
 import java.util.List;
 
-import parser.Token;
+import lexicalAnalyzer.Token;
 
 public class TokenListIterator {
 	
