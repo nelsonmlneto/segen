@@ -35,7 +35,7 @@ public interface LexicalAnalyzerConstants {
   /** RegularExpression Id. */
   int HEADER = 17;
   /** RegularExpression Id. */
-  int GLOBAL = 18;
+  int FIELD = 18;
   /** RegularExpression Id. */
   int TARGET = 19;
   /** RegularExpression Id. */
@@ -122,7 +122,7 @@ public interface LexicalAnalyzerConstants {
     "\"beforeAll\"",
     "\"afterAll\"",
     "\"header\"",
-    "\"global\"",
+    "\"fields\"",
     "<TARGET>",
     "<LETTER>",
     "<DIGIT>",

@@ -12,7 +12,7 @@ public class ScriptModel {
 	private BeforeAll beforeAll;
 	private AfterAll afterAll;
 	private Header header;
-	private Global global;
+	private Fields fields;
 	
 	public ScriptModel(){
 		simpleTests = new ArrayList<SimpleTest>();
@@ -84,18 +84,18 @@ public class ScriptModel {
 		if(this.header == null)
 			return false;
 		return true;
-	}
-
-	public Global getGlobal() {
-		return global;
-	}
-
-	public void setGlobal(Global global) {
-		this.global = global;
-	}
+	}	
 	
+	public Fields getFields() {
+		return fields;
+	}
+
+	public void setFields(Fields fields) {
+		this.fields = fields;
+	}
+
 	public boolean containsGlobal(){
-		if(this.global == null)
+		if(this.fields == null)
 			return false;
 		return true;
 	}

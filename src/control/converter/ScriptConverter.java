@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.AfterAll;
 import model.BeforeAll;
-import model.Global;
+import model.Fields;
 import model.Header;
 import model.Procedure;
 import model.ScriptModel;
@@ -34,7 +34,7 @@ public class ScriptConverter {
 		
 		convertHeader();
 		
-		convertGlobal();
+		convertFields();
 		
 		convertBeforeAll();
 
@@ -57,12 +57,12 @@ public class ScriptConverter {
 			
 	}
 	
-	private void convertGlobal(){
+	private void convertFields(){
 		if(scriptModel.containsGlobal()){
-			Global global = scriptModel.getGlobal();
-			StringConverter stringCon = convertTestStatements(global.getStatements());
-			this.generator.setGlobalWeb(stringCon.getStatementsWeb());
-			this.generator.setGlobalMobile(stringCon.getStatementsMobile());
+			Fields fields = scriptModel.getFields();
+			StringConverter stringCon = convertTestStatements(fields.getStatements());
+			this.generator.setFieldsWeb(stringCon.getStatementsWeb());
+			this.generator.setFieldsMobile(stringCon.getStatementsMobile());
 		}
 		
 			

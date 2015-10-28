@@ -6,6 +6,7 @@ import org.junit.Test;
 
 class dashboard {
 private static WebDriver driver;
+private static String OFF;
 
   @BeforeAll
   void setUpAll() {

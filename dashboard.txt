@@ -6,12 +6,17 @@ header begin
     end
 end
 
-global begin
+fields begin
     private static WebDriver driver;
     
     @web begin
         private static String baseUrl;
-    end    
+    end
+    
+    @mobile begin
+        private static String OFF;
+    end  
+        
 end
 
 beforeAll begin

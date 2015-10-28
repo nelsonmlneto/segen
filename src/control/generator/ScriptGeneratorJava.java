@@ -55,12 +55,12 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	}
 	
 	@Override
-	public void setGlobalWeb(String globalWeb){
+	public void setFieldsWeb(String globalWeb){
 		this.globalWeb = globalWeb;
 	}
 	
 	@Override
-	public void setGlobalMobile(String globalMobile){
+	public void setFieldsMobile(String globalMobile){
 		this.globalMobile = globalMobile;
 	}
 	

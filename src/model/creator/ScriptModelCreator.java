@@ -2,17 +2,17 @@ package model.creator;
 
 import java.util.List;
 
-import control.converter.TokenListIterator;
 import lexicalAnalyzer.SegenConstants;
 import lexicalAnalyzer.Token;
 import model.AfterAll;
 import model.BeforeAll;
-import model.Global;
+import model.Fields;
 import model.Header;
 import model.Procedure;
 import model.ScriptModel;
 import model.SimpleTest;
 import model.exception.SyntaxException;
+import control.converter.TokenListIterator;
 
 public class ScriptModelCreator {
 
@@ -73,13 +73,13 @@ public class ScriptModelCreator {
 			    	
 			    	break;	
 			    
-	    		case SegenConstants.GLOBAL:
+	    		case SegenConstants.FIELD:
 			    	
 			    	if(script.containsGlobal()){
 			    		throw new SyntaxException("Only one <global> structure allowed");
 			    	}else{
-			    		Global global = GlobalCreator.create(tokenIterator);
-			    		script.setGlobal(global);
+			    		Fields fiels = FieldsCreator.create(tokenIterator);
+			    		script.setFields(fiels);
 			    	}
 			    	
 			    	break;	

@@ -67,7 +67,7 @@ TOKEN :
 | < BEFOREALL: "beforeAll" >
 | < AFTERALL: "afterAll" >
 | < HEADER: "header" >
-| < GLOBAL: "global" >
+| < FIELD: "fields" >
 }
 
 TOKEN :
