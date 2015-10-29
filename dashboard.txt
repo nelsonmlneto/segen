@@ -1,11 +1,3 @@
-header begin
-    import org.openqa.selenium.*;
-
-    @mobile begin
-        import io.selendroid.*;
-    end
-end
-
 fields begin
     private static WebDriver driver;
     

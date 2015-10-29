@@ -30,11 +30,15 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	
 	private String globalMobile;
 	
+	private String SELENIUM_IMPORT = "import org.openqa.selenium.*;";
+	
+	private String SELENDROID_IMPORT = "import io.selendroid.*;";
+	
 	public ScriptGeneratorJava(){
 		this.methodsWeb = new ArrayList<MethodSpec>();
 		this.methodsMobile = new ArrayList<MethodSpec>();
-		this.headerWeb = "";
-		this.headerMobile = "";
+		this.headerWeb = this.SELENIUM_IMPORT + "\n";
+		this.headerMobile = this.SELENIUM_IMPORT + "\n" + this.SELENDROID_IMPORT + "\n";
 		this.globalWeb = "";
 		this.globalMobile = "";
 	}
@@ -46,12 +50,12 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	
 	@Override
 	public void setHeaderWeb(String headerWeb) {
-		this.headerWeb = headerWeb;
+		this.headerWeb = this.headerWeb + headerWeb + "\n";
 	}
 
 	@Override
 	public void setHeaderMobile(String headerMobile) {
-		this.headerMobile = headerMobile;
+		this.headerMobile = this.headerMobile + headerMobile + "\n";
 	}
 	
 	@Override
