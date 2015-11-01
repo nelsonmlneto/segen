@@ -37,19 +37,11 @@ public class BeforeAllCreator {
 			    	break;     
 		            
 			    default:
-			    	throw new SyntaxException("Wrong instruction for <beforeAll> at line " + currentToken.beginLine);
+			    	throw new SyntaxException("Instruction not allowed for <beforeAll> at line " + currentToken.beginLine);
 			}
 			beforeAll.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();
 		}
-		
-
-		//TODO remove
-//		System.out.println(">> BeforeAll");
-//		for(Statement t : beforeAll.getStatements()){
-//			System.out.println(t.getStatement());
-//		}
-//		System.out.println("");
 		
 		return beforeAll;
 

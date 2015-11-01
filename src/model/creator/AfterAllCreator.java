@@ -38,18 +38,11 @@ public class AfterAllCreator {
 			    	break;     
 		            
 			    default:
-			    	throw new SyntaxException("Wrong instruction for <afterAll> at line " + currentToken.beginLine);
+			    	throw new SyntaxException("Instruction not allowed for <afterAll> at line " + currentToken.beginLine);
 			}
 			afterAll.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();
 		}
-
-		//TODO remove
-//		System.out.println(">> AfterAll");
-//		for(Statement t : afterAll.getStatements()){
-//			System.out.println(t.getStatement());
-//		}
-//		System.out.println("");
 		
 		return afterAll;
 

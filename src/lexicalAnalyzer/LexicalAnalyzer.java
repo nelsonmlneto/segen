@@ -6,12 +6,12 @@ import java.util.List;
 
 
 public class LexicalAnalyzer implements LexicalAnalyzerConstants {
-final static String version = "Segen - Selenium Test Script Generator Prototype for Web and Mobile environment  - Version 1.0 - 2015";
 
-  public static List<Token> analyze(FileInputStream script) throws ParseException{
+  public static List<Token> analyze(FileInputStream script, boolean log) throws ParseException{
 
     LexicalAnalyzer analyzer = new LexicalAnalyzer(script);
-    return analyzer.start();
+    if(log){System.out.println("Starting lexical analysis\u005cn");}
+    return analyzer.start(log);
 
   }
 
@@ -25,7 +25,7 @@ static public String im(int x){
   return s;
 }
 
-  List<Token> start() throws ParseException, ParseException, ParseException {
+  List<Token> start(boolean log) throws ParseException, ParseException, ParseException {
   List<Token> tokens = new ArrayList<Token>();
     Token t;
     do{
@@ -35,9 +35,9 @@ static public String im(int x){
             while ( st.specialToken != null)
             st = st.specialToken;
             do{
-                    System.out.println("Line: " + st.beginLine +
-                         " " + st.image +
-                         "  " + im(st.kind) + "  "+t.kind);
+              if(log){
+                System.out.println("Line: " + st.beginLine + " " + st.image + "  " + im(st.kind) + "  "+t.kind);
+              }
             st = st.next;
     } while (st != t.next);
     } while (t.kind != LexicalAnalyzerConstants.EOF);

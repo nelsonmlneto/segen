@@ -17,36 +17,29 @@ public class Controller {
 
 	private ScriptModel script;
 	
+	private boolean log; 
+	
 	private static Controller _instance;
 	
 	private Controller(){}
 	
-	public void createScripts(FileInputStream file, String testSuiteName){
-				
-//		List<Token> tokens;
-//		try {
-//			tokens = LexicalAnalyzer.analyze(file);
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
+	public void createScripts(FileInputStream file, String testSuiteName) throws ParseException, SyntaxException, IOException{
 		
-		try {
-			List<Token> tokens = LexicalAnalyzer.analyze(file);
-			script = ScriptModelCreator.create(tokens);
-		} catch (SyntaxException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}	
+		//Lexical Analysis
+		List<Token> tokens = LexicalAnalyzer.analyze(file,log);
+		
+		//Script Model Creation
+		script = ScriptModelCreator.create(tokens);
 
-		try {
-			ScriptConverter converter = ScriptConverter.getInstance();
-			ScriptGeneratorJava generator = new ScriptGeneratorJava();
-			converter.convert(script, generator, testSuiteName);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
+		//Final Scripts Conversion and Generation
+		ScriptConverter converter = ScriptConverter.getInstance();
+		ScriptGeneratorJava generator = new ScriptGeneratorJava();
+		converter.convert(script, generator, testSuiteName);
 		
+	}
+	
+	public void setLog(boolean log) {
+		this.log = log;
 	}
 	
 	public static Controller getInstance(){

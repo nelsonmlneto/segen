@@ -38,7 +38,7 @@ public class HeaderCreator {
 			    	break;     
 		            
 			    default:
-			    	throw new SyntaxException("Wrong instruction for <beforeAll> at line " + currentToken.beginLine);
+			    	throw new SyntaxException("Instruction not allowed for <header> at line " + currentToken.beginLine);
 			}
 			header.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();

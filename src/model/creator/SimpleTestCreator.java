@@ -54,18 +54,11 @@ public class SimpleTestCreator {
 		            break;     
 		            
 			    default:
-			    	throw new SyntaxException("Wrong instruction at line " + currentToken.beginLine);
+			    	throw new SyntaxException("Instruction not allowed at line " + currentToken.beginLine);
 			}
 			test.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();
 		}
-		
-		//TODO remove		
-//		System.out.println(">> Listing simple test: " + test.getTitle());
-//		for(Statement t : test.getStatements()){
-//			System.out.println(t.getStatement());
-//		}
-//		System.out.println("");
 		
 		return test;
 	}

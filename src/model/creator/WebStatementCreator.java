@@ -30,14 +30,10 @@ public class WebStatementCreator {
 		            
 			    case SegenConstants.CLICKBUTTON:
 			    	statement = ClickButtonStatementCreator.create(tokenIterator);
-		            break;     
-		            
-//		    	case SegenConstants.PROCALL:
-//		    		statement = ProcedureCallStatementCreator.create(currentToken.image, tokenIterator);
-//		            break;      
+		            break;    
 		            
 			    default:
-			    	throw new SyntaxException("Wrong instruction at line " + currentToken.beginLine);
+			    	throw new SyntaxException("Instruction not allowed at line " + currentToken.beginLine);
 			}
 			
 			web.addStatement(statement);

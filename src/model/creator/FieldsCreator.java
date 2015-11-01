@@ -38,7 +38,7 @@ public class FieldsCreator {
 			    	break;     
 		            
 			    default:
-			    	throw new SyntaxException("Wrong instruction for <beforeAll> at line " + currentToken.beginLine);
+			    	throw new SyntaxException("Instruction not allowed for <fields> at line " + currentToken.beginLine);
 			}
 			fields.addStatement(statement);
 			currentToken = tokenIterator.getNextToken();
