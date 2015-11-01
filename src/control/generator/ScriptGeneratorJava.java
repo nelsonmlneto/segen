@@ -5,9 +5,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.AfterAll;
-import model.BeforeAll;
+import javax.lang.model.element.Modifier;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.squareup.javapoet.JavaFile;
@@ -32,7 +33,7 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	
 	private String SELENIUM_IMPORT = "import org.openqa.selenium.*;";
 	
-	private String SELENDROID_IMPORT = "import io.selendroid.*;";
+	private String SELENDROID_IMPORT = "import io.selendroid.client.*;\nimport io.selendroid.common.*;";
 	
 	public ScriptGeneratorJava(){
 		this.methodsWeb = new ArrayList<MethodSpec>();
@@ -72,7 +73,8 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	public void setBeforeAllWeb(String statementsWeb){
 		MethodSpec method;
 		method = MethodSpec.methodBuilder("setUpAll")
-				.addAnnotation(BeforeAll.class)
+				.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+				.addAnnotation(BeforeClass.class)
 				.addStatement(statementsWeb)
 				.build();
 		methodsWeb.add(method);
@@ -82,7 +84,8 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	public void setBeforeAllMobile(String statementsMobile){
 		MethodSpec method;
 		method = MethodSpec.methodBuilder("setUpAll")
-				.addAnnotation(BeforeAll.class)
+				.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+				.addAnnotation(BeforeClass.class)
 				.addStatement(statementsMobile)
 				.build();
 		methodsMobile.add(method);
@@ -93,6 +96,7 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	public void addTestCaseWeb(String title, String statements){
 		MethodSpec method;
 		method = MethodSpec.methodBuilder(title)
+				.addModifiers(Modifier.PUBLIC)
 				.addAnnotation(Test.class)
 				.addStatement(statements)
 				.build();
@@ -103,6 +107,7 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	public void addTestCaseMobile(String title, String statements){
 		MethodSpec method;
 		method = MethodSpec.methodBuilder(title)
+				.addModifiers(Modifier.PUBLIC)
 				.addAnnotation(Test.class)
 				.addStatement(statements)
 				.build();
@@ -113,7 +118,8 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	public void setAfterAllWeb(String statementsWeb){
 		MethodSpec method;
 		method = MethodSpec.methodBuilder("tearDownAll")
-				.addAnnotation(AfterAll.class)
+				.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+				.addAnnotation(AfterClass.class)
 				.addStatement(statementsWeb)
 				.build();
 		methodsWeb.add(method);
@@ -123,7 +129,8 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	public void setAfterAllMobile(String statementsMobile){
 		MethodSpec method;
 		method = MethodSpec.methodBuilder("tearDownAll")
-				.addAnnotation(AfterAll.class)
+				.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+				.addAnnotation(AfterClass.class)
 				.addStatement(statementsMobile)
 				.build();
 		methodsMobile.add(method);
@@ -138,6 +145,7 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 
 	private void generateWebFile() throws IOException{
 		TypeSpec testWeb = TypeSpec.classBuilder(testSuiteName)
+			.addModifiers(Modifier.PUBLIC)		
 		    .addMethods(methodsWeb)
 		    .build();
 		JavaFile javaFileWeb = JavaFile.builder("",testWeb)
@@ -155,6 +163,7 @@ public class ScriptGeneratorJava implements ScriptGenerator {
 	
 	private void generateMobileFile() throws IOException{
 		TypeSpec testMob = TypeSpec.classBuilder(testSuiteName)
+			.addModifiers(Modifier.PUBLIC)	
 		    .addMethods(methodsMobile)
 		    .build();
 		JavaFile javaFileMob = JavaFile.builder("",testMob)
