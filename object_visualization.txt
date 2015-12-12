@@ -1,70 +1,69 @@
 header begin
-    @web begin
-        import org.openqa.selenium.chrome.ChromeDriver;
-        import java.util.concurrent.TimeUnit;
-    end
-    @mobile begin
-        import io.selendroid.common.device.DeviceTargetPlatform;
-        import org.openqa.selenium.interactions.touch.TouchActions;
-    end
-    import static org.junit.Assert.*;
+  @web begin
+      import org.openqa.selenium.chrome.ChromeDriver;
+      import java.util.concurrent.TimeUnit;
+  end
+  @mobile begin
+      import io.selendroid.common.device.DeviceTargetPlatform;
+      import org.openqa.selenium.interactions.touch.TouchActions;
+  end
+  import static org.junit.Assert.*;
 end
 
 fields begin
-    private static WebDriver driver;
-    @web begin
-        private static String baseUrl;
-    end 
+  private static WebDriver driver;
+  @web begin
+      private static String baseUrl;
+  end 
 end
 
 beforeAll begin
-    @web begin
-		System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
-		driver = new ChromeDriver();	  
-		baseUrl = "http://localhost:3000/";
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    end
-
-    @mobile begin    
-		SelendroidCapabilities capa = new SelendroidCapabilities();
-	  	capa.setAut("com.shems.mobile:1.0");	  
-      	capa.setPlatformVersion(DeviceTargetPlatform.ANDROID19);     
-     	capa.setEmulator(true);
-      	capa.setModel("Galaxy Nexus");
-  		driver = new SelendroidDriver(capa);
-    end
+  @web begin
+    System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+    driver = new ChromeDriver();    
+    baseUrl = "http://localhost:3000/";
+    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+  end
+  @mobile begin    
+    SelendroidCapabilities capa = new SelendroidCapabilities();
+    capa.setAut("com.shems.mobile:1.0");    
+    capa.setPlatformVersion(DeviceTargetPlatform.ANDROID19);     
+    capa.setEmulator(true);
+    capa.setModel("Galaxy Nexus");
+    driver = new SelendroidDriver(capa);
+  end
 end
 
 simple testObjectVisualization1 begin
-    @goToObjectFilter[]
-    driver.findElement(By.linkText("Air Conditioner")).click();
-    assertEquals("Object Visualization", driver.findElement(By.id("labelPageTitle")).getText());
-    assertEquals("Air Conditioner", driver.findElement(By.id("textObjName")).getText());  
+  @goToObjectFilter[]
+  driver.findElement(By.linkText("Air Conditioner")).click();
+  assertEquals("Object Visualization", driver.findElement(By.id("labelPageTitle")).getText());
+  assertEquals("Air Conditioner", driver.findElement(By.id("textObjName")).getText());  
 end
 
 simple testObjectVisualization2 begin
-    @goToObjectFilter[]
-    driver.findElement(By.linkText("Clothes Iron")).click();
-    assertEquals("Object Visualization", driver.findElement(By.id("labelPageTitle")).getText());
-    assertEquals("Clothes Iron", driver.findElement(By.id("textObjName")).getText());  
+  @goToObjectFilter[]
+  driver.findElement(By.linkText("Clothes Iron")).click();
+  assertEquals("Object Visualization", driver.findElement(By.id("labelPageTitle")).getText());
+  assertEquals("Clothes Iron", driver.findElement(By.id("textObjName")).getText());  
 end
 
 simple testObjectVisualization3 begin
-    @goToObjectFilter[]
-    driver.findElement(By.linkText("Hair Straightener")).click();
-    assertEquals("Object Visualization", driver.findElement(By.id("labelPageTitle")).getText());
-    assertEquals("Hair Straightener", driver.findElement(By.id("textObjName")).getText()); 
+  @goToObjectFilter[]
+  driver.findElement(By.linkText("Hair Straightener")).click();
+  assertEquals("Object Visualization", driver.findElement(By.id("labelPageTitle")).getText());
+  assertEquals("Hair Straightener", driver.findElement(By.id("textObjName")).getText()); 
 end
 
 proc goToObjectFilter[] begin
-    @web begin
-        driver.get(baseUrl + "/");
-    end
-    @mobile begin
-        driver.findElement(By.linkText("Objects")).click();
-    end
+  @web begin
+      driver.get(baseUrl + "/");
+  end
+  @mobile begin
+      driver.findElement(By.linkText("Objects")).click();
+  end
 end
 
 afterAll begin
-	 driver.quit(); 
+  driver.quit(); 
 end

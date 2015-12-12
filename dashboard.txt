@@ -1,76 +1,76 @@
 header begin
-    @web begin
-        import org.openqa.selenium.chrome.ChromeDriver;
-        import java.util.concurrent.TimeUnit;
-    end
-    @mobile begin
-        import io.selendroid.common.device.DeviceTargetPlatform;
-        import org.openqa.selenium.interactions.touch.TouchActions;
-    end
-    import static org.junit.Assert.*;
+  @web begin
+      import org.openqa.selenium.chrome.ChromeDriver;
+      import java.util.concurrent.TimeUnit;
+  end
+  @mobile begin
+      import io.selendroid.common.device.DeviceTargetPlatform;
+      import org.openqa.selenium.interactions.touch.TouchActions;
+  end
+  import static org.junit.Assert.*;
 end
 
 fields begin
-    private static WebDriver driver;
-    @web begin
-        private static String baseUrl;
-    end 
+  private static WebDriver driver;
+  @web begin
+      private static String baseUrl;
+  end 
 end
 
 beforeAll begin
-    @web begin
-		System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
-		driver = new ChromeDriver();	  
-		baseUrl = "http://localhost:3000/";
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    end
-    @mobile begin    
-		SelendroidCapabilities capa = new SelendroidCapabilities();
-	  	capa.setAut("com.shems.mobile:1.0");	  
-      	capa.setPlatformVersion(DeviceTargetPlatform.ANDROID19);     
-     	capa.setEmulator(true);
-      	capa.setModel("Galaxy Nexus");
-  		driver = new SelendroidDriver(capa);
-    end
+  @web begin
+    System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+    driver = new ChromeDriver();	  
+    baseUrl = "http://localhost:3000/";
+    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+  end
+  @mobile begin    
+    SelendroidCapabilities capa = new SelendroidCapabilities();
+    capa.setAut("com.shems.mobile:1.0");	  
+    capa.setPlatformVersion(DeviceTargetPlatform.ANDROID19);     
+    capa.setEmulator(true);
+    capa.setModel("Galaxy Nexus");
+    driver = new SelendroidDriver(capa);
+  end
 end
 
 simple testGoalAndConsumedMarch begin
-    @openPage[]
-    @openMonthSelector["1"]
-    assertEquals("100", driver.findElement(By.id("goal")).getText());
-    assertEquals("84", driver.findElement(By.id("consumed")).getText());
+  @openPage[]
+  @openMonthSelector["1"]
+  assertEquals("100", driver.findElement(By.id("goal")).getText());
+  assertEquals("84", driver.findElement(By.id("consumed")).getText());
 end    
 
 simple testGoalAndConsumedFebruary begin
-    @openPage[]
-    @openMonthSelector["2"]
-    assertEquals("100", driver.findElement(By.id("goal")).getText());
-    assertEquals("89", driver.findElement(By.id("consumed")).getText());
+  @openPage[]
+  @openMonthSelector["2"]
+  assertEquals("100", driver.findElement(By.id("goal")).getText());
+  assertEquals("89", driver.findElement(By.id("consumed")).getText());
 end 
 
 simple testGoalAndConsumedJanuary begin
-    @openPage[]
-    @openMonthSelector["3"]
-    assertEquals("100", driver.findElement(By.id("goal")).getText());
-    assertEquals("77", driver.findElement(By.id("consumed")).getText());
+  @openPage[]
+  @openMonthSelector["3"]
+  assertEquals("100", driver.findElement(By.id("goal")).getText());
+  assertEquals("77", driver.findElement(By.id("consumed")).getText());
 end   
 
 proc openPage [] begin
-    @web begin
-        driver.get(baseUrl + "/");
-    end
+  @web begin
+      driver.get(baseUrl + "/");
+  end
 end
 
 proc openMonthSelector [monthIndex] begin
-    @web begin
-        driver.findElement(By.xpath("//select[@id='month-select']/option["+$monthIndex+"]")).click();
-    end
-    @mobile begin 
-        driver.findElement(By.linkText("March")).click();
-        driver.findElement(By.xpath("//AppCompatTextView["+$monthIndex+"]")).click();
-    end    
+  @web begin
+      driver.findElement(By.xpath("//select[@id='month-select']/option["+$monthIndex+"]")).click();
+  end
+  @mobile begin 
+      driver.findElement(By.linkText("March")).click();
+      driver.findElement(By.xpath("//AppCompatTextView["+$monthIndex+"]")).click();
+  end    
 end
 
 afterAll begin
-	 driver.quit(); 
+  driver.quit(); 
 end

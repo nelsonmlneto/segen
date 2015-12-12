@@ -2,6 +2,7 @@ package control.generator;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.junit.Test;
 
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 public class ScriptGeneratorJava implements ScriptGenerator {
